@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Str;
 
 class BrandFactory extends Factory
 {
@@ -21,9 +22,11 @@ class BrandFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
+
         return [
-            'name' => $this->faker->name(),
-            'slug' => $this->faker->text()
+            'name' => $name,
+            'slug' => Str::slug($name, '-')
         ];
     }
 }
