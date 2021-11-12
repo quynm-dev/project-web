@@ -22,7 +22,7 @@ class RateFactory extends Factory
     public function definition()
     {
         return [
-            'order_id' => $this->faker->numberBetween(1, 50),
+            'order_item_id' => $this->faker->numberBetween(1, 50),
             'star' => $this->faker->randomNumber(),
             'comment' => $this->faker->text(),
             'like' => $this->faker->randomNumber()

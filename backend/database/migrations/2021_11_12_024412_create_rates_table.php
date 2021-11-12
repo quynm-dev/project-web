@@ -15,8 +15,8 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->unsignedBigInteger('order_item_id');
+            $table->foreign('order_item_id')->references('id')->on('order_items');
             $table->integer('star');
             $table->string('comment');
             $table->integer('like');

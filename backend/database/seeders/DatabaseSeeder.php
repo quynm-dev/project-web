@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use PhpOption\Option;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,8 +19,8 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             OptionSeeder::class,
             OrderSeeder::class,
+            OrderItemSeeder::class,
             RateSeeder::class,
-            OrderItemSeeder::class
         ]);
     }
 }
