@@ -19,6 +19,11 @@ class Product extends Model
         'rate_count',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function options() {
         return $this->hasMany(Option::class);
     }

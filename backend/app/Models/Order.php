@@ -16,6 +16,10 @@ class Order extends Model
         'address',
     ];
 
+    protected $hidden = [
+        'updated_at',
+    ];
+
     public function orderItems() {
         return $this->hasMany(OrderItem::class);
     }

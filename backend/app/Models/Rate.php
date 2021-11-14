@@ -16,6 +16,10 @@ class Rate extends Model
         'like',
     ];
 
+    protected $hidden = [
+        'updated_at',
+    ];
+
     public function orderItem() {
         return $this->belongsTo(OrderItem::class);
     }
