@@ -16,11 +16,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
-//     Route::get('/products', [ProductController::class, 'index']);
-//     Route::post('/logout', [AuthController::class, 'logout']);
-// });
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('/products', ProductController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
-// Route::post('/register', [AuthController::class, 'register']);
-// Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+
 

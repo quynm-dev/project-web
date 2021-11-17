@@ -35,7 +35,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return "product store page";
+        if(auth()->user()->can('create', Product::class)) {
+            $product = Product::create($request->all());
+
+            return response()->json($product, 201);
+        }
+
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 
     /**
@@ -69,7 +75,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return "product update page";
+        $product = Product::find($id);
+        if(auth()->user()->can('update', $product)) {
+            $product->update($request->all());
+
+            return response()->json($product, 200);
+        }
+
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 
     /**
@@ -80,6 +93,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        return "product destroy page";
+        $product = Product::find($id);
+        if(auth()->user()->can('delete', $product)) {
+            $product->options()->delete();
+            $product->delete();
+
+            return response()->json(null, 204);
+        }
+
+        return response()->json(['message' => 'Forbidden'], 403);
     }
 }
