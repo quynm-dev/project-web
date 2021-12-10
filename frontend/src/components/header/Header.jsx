@@ -21,16 +21,19 @@ function Header() {
           paddingLeft: '30px',
         }}
       >
-        <img src="/images/header/logo.svg" alt="logo" />
+        <Link to="/">
+          <img src="/images/header/logo.svg" alt="logo" />
+        </Link>
       </Box>
       <Box
         sx={{
           display: 'flex',
           width: '35%',
-          justifyContent: 'space-between',
         }}
       >
-        <Box sx={{ paddingX: '10px' }}>
+        <Box
+          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
+        >
           <Link
             to="/products"
             style={{
@@ -43,7 +46,9 @@ function Header() {
             SẢN PHẨM
           </Link>
         </Box>
-        <Box sx={{ paddingX: '10px' }}>
+        <Box
+          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
+        >
           <Link
             to="/men"
             style={{
@@ -56,7 +61,9 @@ function Header() {
             NAM
           </Link>
         </Box>
-        <Box sx={{ paddingX: '10px' }}>
+        <Box
+          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
+        >
           <Link
             to="/women"
             style={{
@@ -69,7 +76,7 @@ function Header() {
             NỮ
           </Link>
         </Box>
-        <Box sx={{ paddingX: '10px' }}>
+        <Box sx={{ paddingX: '20px' }}>
           <Link
             to="/sale-off"
             style={{

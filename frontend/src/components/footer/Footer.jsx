@@ -28,20 +28,25 @@ function Footer() {
   ];
   return (
     <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: '#4c4c4c',
-        paddingX: '20px',
-        paddingY: '50px',
-      }}
+      sx={{ backgroundColor: '#4c4c4c', paddingX: '20px', paddingY: '50px' }}
     >
-      <Box sx={{ paddingRight: '20px' }}>
-        <img src="/images/footer/store.svg" alt="store" />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingY: '20px',
+        }}
+      >
+        <Box sx={{ paddingRight: '20px' }}>
+          <img src="/images/footer/store.svg" alt="store" />
+        </Box>
+        {columns.map((column) => {
+          return <FooterColumn title={column.title} items={column.items} />;
+        })}
       </Box>
-      {columns.map((column) => {
-        return <FooterColumn title={column.title} items={column.items} />;
-      })}
+      <Box sx={{ color: '#c4c4c4', textAlign: 'center' }}>
+        Copyright © 2021 Ananas. All rights reserved.
+      </Box>
     </Box>
   );
 }
