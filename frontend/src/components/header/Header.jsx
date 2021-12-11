@@ -9,7 +9,7 @@ function Header() {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        paddingY: '15px',
+        paddingY: '30px',
         justifyContent: 'space-around',
         backgroundColor: '#ffffff',
       }}
