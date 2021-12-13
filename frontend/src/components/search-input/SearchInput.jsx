@@ -17,10 +17,7 @@ function SearchInput() {
         <SearchIcon sx={{ position: 'relative', top: '2px' }} />
       </Box>
       <Box>
-        <Input
-          placeholder="Tìm kiếm"
-          style={{ textDecoration: 'none', border: 'none', outline: 'none' }}
-        />
+        <Input placeholder="Tìm kiếm" />
       </Box>
     </Box>
   );

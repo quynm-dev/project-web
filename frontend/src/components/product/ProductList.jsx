@@ -49,6 +49,7 @@ function ProductList() {
                 productBrand={productBrand}
                 productPrice={productPrice}
                 productName={productName}
+                width="30%"
               />
             );
           },

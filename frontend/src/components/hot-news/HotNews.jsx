@@ -8,7 +8,7 @@ import 'swiper/components/pagination/pagination.min.css';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-export default function Carousel() {
+export default function HotNews() {
   const hotNews = [
     'FREE SHIP HOÁ ĐƠN TỪ 800K!',
     'BUY MORE PAY LESS - ÁP DỤNG KHI MUA PHỤ KIỆN',
