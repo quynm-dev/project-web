@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Toolbar, Box, AppBar, Typography } from '@mui/material';
+import { Button, Toolbar, Box, AppBar, Typography, Link } from '@mui/material';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -19,31 +19,41 @@ export default function ButtonAppBar() {
           <Button color="inherit" sx={{ paddingRight: '20px' }}>
             <PlagiarismOutlinedIcon />
             <Typography sx={{ paddingLeft: '10px', fontSize: '12px' }}>
-              Tra cứu đơn hàng
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                Tra cứu đơn hàng
+              </Link>
             </Typography>
           </Button>
           <Button color="inherit" sx={{ paddingRight: '20px' }}>
             <LocationOnOutlinedIcon />
             <Typography sx={{ paddingLeft: '10px', fontSize: '12px' }}>
-              Tìm cửa hàng
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                Tìm cửa hàng
+              </Link>
             </Typography>
           </Button>
           <Button color="inherit" sx={{ paddingRight: '20px' }}>
             <FavoriteBorderOutlinedIcon />
             <Typography sx={{ paddingLeft: '10px', fontSize: '12px' }}>
-              Yêu thích
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                Yêu thích
+              </Link>
             </Typography>
           </Button>
           <Button color="inherit" sx={{ paddingRight: '20px' }}>
             <PersonOutlineOutlinedIcon />
             <Typography sx={{ paddingLeft: '10px', fontSize: '12px' }}>
-              Đăng nhập
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                Đăng nhập
+              </Link>
             </Typography>
           </Button>
           <Button color="inherit" sx={{ paddingRight: '20px' }}>
             <ShoppingCartOutlinedIcon />
             <Typography sx={{ paddingLeft: '10px', fontSize: '12px' }}>
-              Giỏ hàng (1)
+              <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
+                Giỏ hàng (1)
+              </Link>
             </Typography>
           </Button>
         </Toolbar>

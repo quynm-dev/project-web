@@ -8,7 +8,7 @@ function SearchInput() {
       sx={{
         display: 'flex',
         position: 'relative',
-        border: '1px solid black',
+        border: '1px solid #ccc',
         alignItems: 'center',
         paddingX: '5px',
       }}
@@ -17,7 +17,11 @@ function SearchInput() {
         <SearchIcon sx={{ position: 'relative', top: '2px' }} />
       </Box>
       <Box>
-        <Input placeholder="Tìm kiếm" />
+        <Input
+          placeholder="Tìm kiếm"
+          style={{ textDecoration: 'none' }}
+          disableUnderline
+        />
       </Box>
     </Box>
   );

@@ -26,7 +26,7 @@ export default function HotNews() {
       }}
       navigation
       loop
-      style={{ backgroundColor: '#f1f1f1' }}
+      style={{ backgroundColor: '#f1f1f1', marginBottom: '30px' }}
     >
       {hotNews.map((hotNew) => {
         return (
