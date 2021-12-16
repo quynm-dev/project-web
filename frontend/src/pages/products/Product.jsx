@@ -1,13 +1,11 @@
-import React from 'react';
-
-import Layout from '../../layouts/main-layout/Layout';
+import { Container } from '@mui/material';
 import ProductList from '../../components/product/ProductList';
 
 function Product() {
   return (
-    <Layout>
+    <Container>
       <ProductList />
-    </Layout>
+    </Container>
   );
 }
 
