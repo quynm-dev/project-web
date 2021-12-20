@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        return DB::table('products')
+        ->join('brands', 'products.brand_id', 'brands.id')
+        ->select('products.*', 'brands.name as brand_name')
+        ->paginate(9)->all();
     }
 
     /**
@@ -50,9 +54,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        return $product;
+        return DB::table('products')
+        ->join('brands', 'products.brand_id', 'brands.id')
+        ->select('products.*', 'brands.name as brand_name')
+        ->where('products.id', $id)
+        ->first();
     }
 
     /**

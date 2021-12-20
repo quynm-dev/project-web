@@ -2,10 +2,11 @@ import { Box, Container } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 

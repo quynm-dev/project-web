@@ -26,9 +26,15 @@ function Promotion({ promotionImageUrl, promotionName, promotionDescription }) {
   );
 }
 Promotion.propTypes = {
-  promotionImageUrl: PropTypes.element.isRequired,
-  promotionName: PropTypes.element.isRequired,
-  promotionDescription: PropTypes.element.isRequired,
+  promotionImageUrl: PropTypes.string,
+  promotionName: PropTypes.string,
+  promotionDescription: PropTypes.string,
+};
+
+Promotion.defaultProps = {
+  promotionImageUrl: '',
+  promotionName: '',
+  promotionDescription: '',
 };
 
 export default Promotion;

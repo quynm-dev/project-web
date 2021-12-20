@@ -5,14 +5,17 @@ import FooterColumn from './FooterColumn';
 function Footer() {
   const columns = [
     {
+      id: 1,
       title: 'Sản phẩm',
       items: ['Giày nam', 'Giày nữ', 'Thời trang & Phụ kiện', 'Sale-off'],
     },
     {
+      id: 2,
       title: 'Về công ty',
       items: ['Dứa tuyển dụng', 'Liên hệ nhượng quyền', 'Về Ananas'],
     },
     {
+      id: 3,
       title: 'Hỗ trợ',
       items: [
         'FAQs',
@@ -22,6 +25,7 @@ function Footer() {
       ],
     },
     {
+      id: 4,
       title: 'Liên hệ',
       items: ['Email góp ý', 'Hotline', '0974651422'],
     },
@@ -40,8 +44,8 @@ function Footer() {
         <Box sx={{ paddingRight: '20px' }}>
           <img src="/images/footer/store.svg" alt="store" />
         </Box>
-        {columns.map((column) => {
-          return <FooterColumn title={column.title} items={column.items} />;
+        {columns.map(({ title, items, id }) => {
+          return <FooterColumn title={title} items={items} key={id} />;
         })}
       </Box>
       <Box sx={{ color: '#c4c4c4', textAlign: 'center' }}>

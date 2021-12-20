@@ -16,15 +16,24 @@ function FooterColumn({ title, items }) {
         {title.toUpperCase()}
       </Box>
       {items.map((item) => {
-        return <Box sx={{ paddingY: '5px', color: '#c4c4c4' }}>{item}</Box>;
+        return (
+          <Box sx={{ paddingY: '5px', color: '#c4c4c4' }} key={item}>
+            {item}
+          </Box>
+        );
       })}
     </Box>
   );
 }
 
 FooterColumn.propTypes = {
-  title: PropTypes.element.isRequired,
-  items: PropTypes.element.isRequired,
+  title: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.string),
+};
+
+FooterColumn.defaultProps = {
+  title: '',
+  items: [],
 };
 
 export default FooterColumn;

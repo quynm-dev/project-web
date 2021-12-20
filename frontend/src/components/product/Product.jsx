@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { PropTypes } from 'prop-types';
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Product({
   productImageUrl,
@@ -16,7 +17,14 @@ function Product({
   productBrand,
   productPrice,
   width,
+  id,
 }) {
+  const navigate = useNavigate();
+
+  const onRedirectProductDetail = () => {
+    return navigate(`/products/${id}`);
+  };
+
   return (
     <Card
       sx={{ width: width, marginY: '20px' }}
@@ -24,23 +32,28 @@ function Product({
       className="product"
     >
       <Box sx={{ position: 'relative' }}>
-        <CardMedia image={productImageUrl} component="img" />
+        <CardMedia
+          image={productImageUrl}
+          component="img"
+          onClick={() => onRedirectProductDetail(id)}
+        />
         <IconButton sx={{ position: 'absolute', right: 4, bottom: 4, p: 1 }}>
           <FavoriteBorderIcon />
         </IconButton>
       </Box>
       <CardContent sx={{ textAlign: 'center' }}>
         <Typography
-          variant="h6"
-          sx={{ fontWeight: 'bold', paddingY: '2px', fontSize: 15 }}
+          sx={{ fontWeight: 'bold', paddingY: '2px', fontSize: '15px' }}
         >
-          {productName}
+          <Link to={`/products/${id}`} style={{ textDecoration: 'none' }}>
+            {productName}
+          </Link>
         </Typography>
         <Typography variant="body2" sx={{ paddingY: '2px' }}>
           {productBrand}
         </Typography>
         <Typography sx={{ fontWeight: 'bold', padding: '2px' }}>
-          {productPrice}
+          {productPrice} $
         </Typography>
       </CardContent>
     </Card>
@@ -48,11 +61,21 @@ function Product({
 }
 
 Product.propTypes = {
-  productImageUrl: PropTypes.element.isRequired,
-  productName: PropTypes.element.isRequired,
-  productBrand: PropTypes.element.isRequired,
-  productPrice: PropTypes.element.isRequired,
-  width: PropTypes.element.isRequired,
+  productImageUrl: PropTypes.string,
+  productName: PropTypes.string,
+  productBrand: PropTypes.string,
+  productPrice: PropTypes.number,
+  width: PropTypes.string,
+  id: PropTypes.number,
+};
+
+Product.defaultProps = {
+  productImageUrl: '',
+  productName: '',
+  productBrand: '',
+  productPrice: 0.0,
+  width: '',
+  id: 0,
 };
 
 export default Product;

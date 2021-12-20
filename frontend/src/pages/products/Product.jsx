@@ -1,4 +1,5 @@
 import { Container } from '@mui/material';
+
 import ProductList from '../../components/product/ProductList';
 
 function Product() {

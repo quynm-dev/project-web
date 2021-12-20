@@ -44,7 +44,7 @@ function CartItem() {
               <Box sx={{ width: 120 }}>
                 <FormControl fullWidth>
                   <InputLabel id="size-label">Size</InputLabel>
-                  <Select labelId="size-label" label="Size">
+                  <Select labelId="size-label" label="Size" defaultValue={38}>
                     <MenuItem value={38}>38</MenuItem>
                     <MenuItem value={39}>39</MenuItem>
                     <MenuItem value={40}>40</MenuItem>
@@ -56,7 +56,11 @@ function CartItem() {
               <Box sx={{ width: 120 }}>
                 <FormControl fullWidth>
                   <InputLabel id="quantity-label">Số lượng</InputLabel>
-                  <Select labelId="quantity-label" label="quantity">
+                  <Select
+                    labelId="quantity-label"
+                    label="quantity"
+                    defaultValue={100}
+                  >
                     <MenuItem value={100}>100</MenuItem>
                     <MenuItem value={200}>200</MenuItem>
                     <MenuItem value={300}>300</MenuItem>

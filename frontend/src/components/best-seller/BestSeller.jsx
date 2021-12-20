@@ -1,14 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
-import 'swiper/components/navigation/navigation.min.css';
-import 'swiper/components/pagination/pagination.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+
 import Product from '../product/Product';
+import axiosClient from '../../api/axios';
+
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -33,62 +36,18 @@ const useStyles = makeStyles({
 });
 
 export default function BestSeller() {
-  const bestSellers = [
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-    {
-      productImageUrl: '/images/products/product-01.jpeg',
-      productName: 'VINTAS THE NEW MILITARY - HIGH TOP',
-      productBrand: 'CAPULET OLIVE',
-      productPrice: '495.000 VND',
-    },
-  ];
+  const [bestSellers, setBestSellers] = useState([]);
+
+  useEffect(() => {
+    axiosClient
+      .get('/products')
+      .then((res) => {
+        setBestSellers(res.data.slice(0, 8));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const classes = useStyles();
 
@@ -121,7 +80,7 @@ export default function BestSeller() {
         <Swiper
           slidesPerView={4}
           spaceBetween={30}
-          slidesPerGroup={3}
+          slidesPerGroup={4}
           loop
           loopFillGroupWithBlank
           style={{ padding: '20px 0' }}
@@ -133,12 +92,12 @@ export default function BestSeller() {
         >
           {bestSellers.map((bestSeller) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={bestSeller.id}>
                 <Product
-                  productImageUrl={bestSeller.productImageUrl}
-                  productBrand={bestSeller.productBrand}
-                  productPrice={bestSeller.productPrice}
-                  productName={bestSeller.productName}
+                  productImageUrl={bestSeller.product_image_url}
+                  productBrand={bestSeller.brand_name}
+                  productPrice={bestSeller.pricing}
+                  productName={bestSeller.name}
                   width="100%"
                 />
               </SwiperSlide>
