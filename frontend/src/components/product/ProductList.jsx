@@ -7,6 +7,7 @@ import axiosClient from '../../api/axios';
 
 function ProductList() {
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
 

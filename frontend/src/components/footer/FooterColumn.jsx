@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { PropTypes } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function FooterColumn({ title, items }) {
   return (
@@ -18,7 +19,9 @@ function FooterColumn({ title, items }) {
       {items.map((item) => {
         return (
           <Box sx={{ paddingY: '5px', color: '#c4c4c4' }} key={item}>
-            {item}
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              {item}
+            </Link>
           </Box>
         );
       })}

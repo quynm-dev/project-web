@@ -1,4 +1,5 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   Box,
   Card,
@@ -8,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { PropTypes } from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Product({
@@ -21,8 +22,14 @@ function Product({
 }) {
   const navigate = useNavigate();
 
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+
   const onRedirectProductDetail = () => {
     return navigate(`/products/${id}`);
+  };
+
+  const onAddToCart = () => {
+    setIsAddedToCart(!isAddedToCart);
   };
 
   return (
@@ -37,8 +44,17 @@ function Product({
           component="img"
           onClick={() => onRedirectProductDetail(id)}
         />
-        <IconButton sx={{ position: 'absolute', right: 4, bottom: 4, p: 1 }}>
-          <FavoriteBorderIcon />
+        <IconButton
+          sx={{
+            position: 'absolute',
+            right: 4,
+            bottom: 4,
+            p: 1,
+            color: '#f15e2c',
+          }}
+          onClick={onAddToCart}
+        >
+          {isAddedToCart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
       </Box>
       <CardContent sx={{ textAlign: 'center' }}>

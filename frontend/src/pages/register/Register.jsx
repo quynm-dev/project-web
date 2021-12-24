@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Input,
-  InputLabel,
-  Link,
-  Checkbox,
-  Snackbar,
-  Alert,
-} from '@mui/material';
+import { Box, Button, Input, InputLabel, Snackbar, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import axiosClient from '../../api/axios';
 
-function Login() {
+function Register() {
+  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
+
+  const onNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const onUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -29,25 +26,28 @@ function Login() {
     setPassword(e.target.value);
   };
 
+  const onConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const onCloseSnackbar = () => {
     setShowSnackbar(false);
   };
 
   const onSubmit = () => {
     axiosClient
-      .post('/login', {
+      .post('/register', {
+        name,
         username,
         password,
+        password_confirmation: confirmPassword,
       })
-      .then((res) => {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.user.id);
-        localStorage.setItem('userRole', res.data.user.role);
-        setSnackbarMessage('Login success');
+      .then(() => {
+        setSnackbarMessage('Register success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {
-          navigate('/');
+          navigate('/login');
         }, 1000);
       })
       .catch((err) => {
@@ -72,10 +72,27 @@ function Login() {
             <img src="/images/login/logo-ananas.svg" alt="banner" />
           </Box>
           <Box
-            sx={{ display: 'flex', justifyContent: 'center', paddingY: '50px' }}
+            sx={{ display: 'flex', justifyContent: 'center', paddingY: '30px' }}
           >
             <Box>
-              <Box sx={{ paddingY: '20px' }}>
+              <Box sx={{ paddingY: '15px' }}>
+                <InputLabel
+                  sx={{ fontSize: '20px', fontWeight: 'bold' }}
+                  htmlFor="name"
+                >
+                  Name
+                </InputLabel>
+                <Input
+                  type="text"
+                  placeholder="Please Enter Name"
+                  required
+                  sx={{ width: '300px' }}
+                  id="name"
+                  onChange={onNameChange}
+                  name="name"
+                />
+              </Box>
+              <Box sx={{ paddingY: '15px' }}>
                 <InputLabel
                   sx={{ fontSize: '20px', fontWeight: 'bold' }}
                   htmlFor="username"
@@ -92,7 +109,7 @@ function Login() {
                   name="username"
                 />
               </Box>
-              <Box sx={{ paddingY: '20px' }}>
+              <Box sx={{ paddingY: '15px' }}>
                 <InputLabel
                   sx={{ fontSize: '20px', fontWeight: 'bold' }}
                   htmlFor="password"
@@ -109,35 +126,22 @@ function Login() {
                   name="password"
                 />
               </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  width: '300px',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    position: 'relative',
-                    left: '-10px',
-                  }}
+              <Box sx={{ paddingY: '15px' }}>
+                <InputLabel
+                  sx={{ fontSize: '20px', fontWeight: 'bold' }}
+                  htmlFor="confirm-password"
                 >
-                  <Checkbox id="remember" />
-                  <InputLabel htmlFor="remember" sx={{ cursor: 'pointer' }}>
-                    Remember me
-                  </InputLabel>
-                </Box>
-                <Box>
-                  <Link
-                    to="/forgot-password"
-                    style={{ textDecoration: 'none', cursor: 'pointer' }}
-                  >
-                    Forgot password?
-                  </Link>
-                </Box>
+                  Confirm Password
+                </InputLabel>
+                <Input
+                  type="password"
+                  required
+                  placeholder="Please Enter Confirm Password"
+                  sx={{ width: '300px' }}
+                  id="confirm-password"
+                  onChange={onConfirmPasswordChange}
+                  name="confirmPassword"
+                />
               </Box>
               <Box sx={{ textAlign: 'center' }}>
                 <Button
@@ -145,7 +149,7 @@ function Login() {
                   sx={{ marginTop: '20px' }}
                   onClick={onSubmit}
                 >
-                  Login
+                  Register
                 </Button>
               </Box>
             </Box>
@@ -165,4 +169,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

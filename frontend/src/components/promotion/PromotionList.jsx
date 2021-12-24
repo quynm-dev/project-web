@@ -19,6 +19,7 @@ function PromotionList() {
         'Danh mục những sản phẩm bán tại "giá tốt hơn" chỉ được bán kênh online - Online Only, chúng đã từng làm mưa làm gió một thời gian và hiện đang rơi vào tình trạng bể size, bể số.',
     },
   ];
+
   return (
     <Box
       sx={{

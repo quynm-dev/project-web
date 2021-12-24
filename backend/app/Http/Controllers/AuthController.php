@@ -13,15 +13,13 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'name' => 'required|string',
             'username' => 'required|string|unique:users,username',
-            'password' => 'required|string|confirmed',
-            'role' => 'required|string'
+            'password' => 'required|string|confirmed|min:8'
         ]);
 
         $user = User::create([
             'name' => $credentials['name'],
             'username' => $credentials['username'],
             'password' => bcrypt($credentials['password']),
-            'role' => $credentials['role']
         ]);
 
         $token = $user->createToken('authToken')->plainTextToken;
@@ -35,7 +33,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         $credentials = $request->validate([
             'username' => 'required|string',
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
         ]);
 
         $user = User::where('username', $credentials['username'])->first();

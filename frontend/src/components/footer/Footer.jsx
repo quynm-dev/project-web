@@ -30,6 +30,7 @@ function Footer() {
       items: ['Email góp ý', 'Hotline', '0974651422'],
     },
   ];
+
   return (
     <Box
       sx={{ backgroundColor: '#4c4c4c', paddingX: '20px', paddingY: '50px' }}
