@@ -40,9 +40,9 @@ export default function BestSeller() {
 
   useEffect(() => {
     axiosClient
-      .get('/products')
+      .get('/best-sellers')
       .then((res) => {
-        setBestSellers(res.data.slice(0, 8));
+        setBestSellers(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -99,6 +99,8 @@ export default function BestSeller() {
                   productPrice={bestSeller.pricing}
                   productName={bestSeller.name}
                   width="100%"
+                  id={bestSeller.id}
+                  showHeartIcon={false}
                 />
               </SwiperSlide>
             );

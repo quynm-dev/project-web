@@ -10,8 +10,10 @@ import {
   Alert,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import axiosClient from '../../api/axios';
+import { login } from '../../redux/actions';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -20,29 +22,28 @@ function Login() {
   const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const onUsernameChange = (e) => {
+  const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const onCloseSnackbar = () => {
+  const handleCloseSnackbar = () => {
     setShowSnackbar(false);
   };
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     axiosClient
       .post('/login', {
         username,
         password,
       })
       .then((res) => {
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('userId', res.data.user.id);
-        localStorage.setItem('userRole', res.data.user.role);
+        dispatch(login(res.data.token, res.data.user.id, res.data.user.role));
         setSnackbarMessage('Login success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
@@ -88,7 +89,7 @@ function Login() {
                   required
                   sx={{ width: '300px' }}
                   id="username"
-                  onChange={onUsernameChange}
+                  onChange={handleUsernameChange}
                   name="username"
                 />
               </Box>
@@ -105,7 +106,7 @@ function Login() {
                   placeholder="Please Enter Password"
                   sx={{ width: '300px' }}
                   id="password"
-                  onChange={onPasswordChange}
+                  onChange={handlePasswordChange}
                   name="password"
                 />
               </Box>
@@ -143,7 +144,7 @@ function Login() {
                 <Button
                   variant="contained"
                   sx={{ marginTop: '20px' }}
-                  onClick={onSubmit}
+                  onClick={handleSubmit}
                 >
                   Login
                 </Button>
@@ -155,7 +156,7 @@ function Login() {
       <Snackbar
         open={showSnackbar}
         autoHideDuration={3000}
-        onClose={onCloseSnackbar}
+        onClose={handleCloseSnackbar}
       >
         <Alert severity={isErrorSnackbarMessage ? 'error' : 'success'}>
           {snackbarMessage}

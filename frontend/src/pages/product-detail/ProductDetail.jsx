@@ -12,6 +12,8 @@ import {
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/actions';
 
 import axiosClient from '../../api/axios';
 
@@ -19,7 +21,12 @@ import BestSeller from '../../components/best-seller/BestSeller';
 
 function ProductDetail() {
   const [product, setProduct] = useState('');
+  const dispatch = useDispatch();
   const { id } = useParams();
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(id));
+  };
 
   useEffect(() => {
     axiosClient
@@ -140,7 +147,11 @@ function ProductDetail() {
                     </Box>
                   </Box>
                 </Box>
-                <Button variant="contained" sx={{ marginBottom: '5px' }}>
+                <Button
+                  variant="contained"
+                  sx={{ marginBottom: '5px' }}
+                  onClick={handleAddToCart}
+                >
                   THÊM VÀO GIỎ HÀNG
                 </Button>
               </Box>

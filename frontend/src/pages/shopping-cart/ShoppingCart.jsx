@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import CartItem from './CartItem';
+import axiosClient from '../../api/axios';
 
 function ShoppingCart() {
+  const cartItemsId = useSelector((state) => state.shoppingCart);
+
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    axiosClient
+      .post('/cart-items', {
+        cartItemsId,
+      })
+      .then((res) => {
+        setCartItems(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [cartItemsId]);
+
   return (
     <Box>
       <Box
@@ -29,11 +48,21 @@ function ShoppingCart() {
             fontWeight: 'bold',
           }}
         >
-          1 sản phẩm
+          {cartItems.length} sản phẩm
         </Box>
       </Box>
-      <CartItem />
-      <CartItem />
+      {cartItems.map((cartItem) => {
+        return (
+          <CartItem
+            cartItemName={cartItem.name}
+            cartItemPrice={cartItem.pricing}
+            cartItemSize={cartItem.size}
+            cartItemQuantity={cartItem.quantity}
+            cartItemImageUrl={cartItem.product_image_url}
+            cartItemId={cartItem.id}
+          />
+        );
+      })}
       <Box
         sx={{
           display: 'flex',

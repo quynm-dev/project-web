@@ -11,6 +11,8 @@ import {
 import { PropTypes } from 'prop-types';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart, removeFromCart } from '../../redux/actions';
 
 function Product({
   productImageUrl,
@@ -19,17 +21,24 @@ function Product({
   productPrice,
   width,
   id,
+  showHeartIcon,
 }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isAddedToCart, setIsAddedToCart] = useState(false);
 
-  const onRedirectProductDetail = () => {
+  const handleRedirectProductDetail = () => {
     return navigate(`/products/${id}`);
   };
 
-  const onAddToCart = () => {
+  const handleAddToCart = () => {
     setIsAddedToCart(!isAddedToCart);
+    if (!isAddedToCart) {
+      dispatch(addToCart(id));
+    } else {
+      dispatch(removeFromCart(id));
+    }
   };
 
   return (
@@ -42,20 +51,24 @@ function Product({
         <CardMedia
           image={productImageUrl}
           component="img"
-          onClick={() => onRedirectProductDetail(id)}
+          onClick={() => handleRedirectProductDetail(id)}
         />
-        <IconButton
-          sx={{
-            position: 'absolute',
-            right: 4,
-            bottom: 4,
-            p: 1,
-            color: '#f15e2c',
-          }}
-          onClick={onAddToCart}
-        >
-          {isAddedToCart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </IconButton>
+        {showHeartIcon ? (
+          <IconButton
+            sx={{
+              position: 'absolute',
+              right: 4,
+              bottom: 4,
+              p: 1,
+              color: '#f15e2c',
+            }}
+            onClick={handleAddToCart}
+          >
+            {isAddedToCart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </IconButton>
+        ) : (
+          ''
+        )}
       </Box>
       <CardContent sx={{ textAlign: 'center' }}>
         <Typography
@@ -83,6 +96,7 @@ Product.propTypes = {
   productPrice: PropTypes.number,
   width: PropTypes.string,
   id: PropTypes.number,
+  showHeartIcon: PropTypes.bool,
 };
 
 Product.defaultProps = {
@@ -92,6 +106,7 @@ Product.defaultProps = {
   productPrice: 0.0,
   width: '',
   id: 0,
+  showHeartIcon: true,
 };
 
 export default Product;

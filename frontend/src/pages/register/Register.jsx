@@ -14,23 +14,23 @@ function Register() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
 
-  const onNameChange = (e) => {
+  const handleNameChange = (e) => {
     setName(e.target.value);
   };
 
-  const onUsernameChange = (e) => {
+  const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
-  const onPasswordChange = (e) => {
+  const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
 
-  const onConfirmPasswordChange = (e) => {
+  const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };
 
-  const onCloseSnackbar = () => {
+  const handleCloseSnackbar = () => {
     setShowSnackbar(false);
   };
 
@@ -88,7 +88,7 @@ function Register() {
                   required
                   sx={{ width: '300px' }}
                   id="name"
-                  onChange={onNameChange}
+                  onChange={handleNameChange}
                   name="name"
                 />
               </Box>
@@ -105,7 +105,7 @@ function Register() {
                   required
                   sx={{ width: '300px' }}
                   id="username"
-                  onChange={onUsernameChange}
+                  onChange={handleUsernameChange}
                   name="username"
                 />
               </Box>
@@ -122,7 +122,7 @@ function Register() {
                   placeholder="Please Enter Password"
                   sx={{ width: '300px' }}
                   id="password"
-                  onChange={onPasswordChange}
+                  onChange={handlePasswordChange}
                   name="password"
                 />
               </Box>
@@ -139,7 +139,7 @@ function Register() {
                   placeholder="Please Enter Confirm Password"
                   sx={{ width: '300px' }}
                   id="confirm-password"
-                  onChange={onConfirmPasswordChange}
+                  onChange={handleConfirmPasswordChange}
                   name="confirmPassword"
                 />
               </Box>
@@ -159,7 +159,7 @@ function Register() {
       <Snackbar
         open={showSnackbar}
         autoHideDuration={3000}
-        onClose={onCloseSnackbar}
+        onClose={handleCloseSnackbar}
       >
         <Alert severity={isErrorSnackbarMessage ? 'error' : 'success'}>
           {snackbarMessage}

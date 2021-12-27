@@ -11,7 +11,7 @@ function ProductList() {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
 
-  const onPageChange = (event, value) => {
+  const handlePageChange = (event, value) => {
     setPage(value);
   };
 
@@ -51,6 +51,7 @@ function ProductList() {
               width="30%"
               id={product.id}
               key={product.id}
+              showHeartIcon
             />
           );
         })}
@@ -60,7 +61,7 @@ function ProductList() {
           count={10}
           variant="outlined"
           shape="rounded"
-          onChange={onPageChange}
+          onChange={handlePageChange}
         />
       </Box>
     </Box>

@@ -18,7 +18,8 @@ class ProductController extends Controller
         return DB::table('products')
         ->join('brands', 'products.brand_id', 'brands.id')
         ->select('products.*', 'brands.name as brand_name')
-        ->paginate(9)->all();
+        ->paginate(9)
+        ->all();
     }
 
     /**
@@ -108,5 +109,22 @@ class ProductController extends Controller
         }
 
         return response()->json(['message' => 'Forbidden'], 403);
+    }
+
+    public function getCartItems(Request $request) {
+        return DB::table('products')
+        ->join('brands', 'products.brand_id', 'brands.id')
+        ->select('products.*', 'brands.name as brand_name')
+        ->whereIn('products.id', $request->input('cartItemsId'))
+        ->get();
+    }
+
+    public function getBestSellers() {
+        return DB::table('products')
+        ->join('brands', 'products.brand_id', 'brands.id')
+        ->select('products.*', 'brands.name as brand_name')
+        ->orderBy('rate_count', 'desc')
+        ->limit(8)
+        ->get();
     }
 }
