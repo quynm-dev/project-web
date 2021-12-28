@@ -25,7 +25,7 @@ function ProductDetail() {
   const { id } = useParams();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(id));
+    dispatch(addToCart(parseInt(id, 10)));
   };
 
   useEffect(() => {

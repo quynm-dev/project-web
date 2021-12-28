@@ -60,6 +60,7 @@ function ShoppingCart() {
             cartItemQuantity={cartItem.quantity}
             cartItemImageUrl={cartItem.product_image_url}
             cartItemId={cartItem.id}
+            key={cartItem.id}
           />
         );
       })}
