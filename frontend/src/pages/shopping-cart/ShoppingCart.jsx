@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import CartItem from './CartItem';
 import axiosClient from '../../api/axios';
+import { removeAllFromShoppingCart } from '../../redux/actions';
 
 function ShoppingCart() {
   const cartItemsId = useSelector((state) => state.shoppingCart);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [cartItems, setCartItems] = useState([]);
+
+  const handleRemoveAllShoppingCart = () => {
+    dispatch(removeAllFromShoppingCart());
+  };
+
+  const handleContinueShopping = () => {
+    navigate('/products');
+  };
 
   useEffect(() => {
     axiosClient
@@ -72,8 +84,12 @@ function ShoppingCart() {
           margin: '20px auto',
         }}
       >
-        <Button variant="contained">XOÁ HẾT</Button>
-        <Button variant="contained">TIẾP TỤC MUA HÀNG</Button>
+        <Button variant="contained" onClick={handleRemoveAllShoppingCart}>
+          XOÁ HẾT
+        </Button>
+        <Button variant="contained" onClick={handleContinueShopping}>
+          TIẾP TỤC MUA HÀNG
+        </Button>
       </Box>
     </Box>
   );

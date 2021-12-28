@@ -12,7 +12,7 @@ import { PropTypes } from 'prop-types';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCart, removeFromCart } from '../../redux/actions';
+import { addToShoppingCart, removeFromShoppingCart } from '../../redux/actions';
 
 function Product({
   productImageUrl,
@@ -26,18 +26,18 @@ function Product({
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const [isAddedToShoppingCart, setIsAddedToShoppingCart] = useState(false);
 
   const handleRedirectProductDetail = () => {
     return navigate(`/products/${id}`);
   };
 
-  const handleAddToCart = () => {
-    setIsAddedToCart(!isAddedToCart);
-    if (!isAddedToCart) {
-      dispatch(addToCart(id));
+  const handleAddToShoppingCart = () => {
+    setIsAddedToShoppingCart(!isAddedToShoppingCart);
+    if (!isAddedToShoppingCart) {
+      dispatch(addToShoppingCart(id));
     } else {
-      dispatch(removeFromCart(id));
+      dispatch(removeFromShoppingCart(id));
     }
   };
 
@@ -62,9 +62,9 @@ function Product({
               p: 1,
               color: '#f15e2c',
             }}
-            onClick={handleAddToCart}
+            onClick={handleAddToShoppingCart}
           >
-            {isAddedToCart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {isAddedToShoppingCart ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
         ) : (
           ''

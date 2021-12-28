@@ -6,8 +6,11 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function ButtonAppBar() {
+  const cartItemsId = useSelector((state) => state.shoppingCart);
+
   return (
     <Box>
       <AppBar position="static">
@@ -103,7 +106,7 @@ export default function ButtonAppBar() {
                   fontWeight: 'bold',
                 }}
               >
-                Giỏ hàng (1)
+                Giỏ hàng ({cartItemsId.length})
               </Box>
             </Box>
           </Link>

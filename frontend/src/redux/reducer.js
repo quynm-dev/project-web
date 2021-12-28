@@ -1,28 +1,19 @@
-const initialState = {
-  shoppingCart: [],
-  user: {
-    id: 0,
-    token: '',
-    role: 'user',
-  },
-};
-
-const rootReducer = (state = initialState, action = {}) => {
+const rootReducer = (state, action = {}) => {
   switch (action.type) {
-    case 'addToCart':
+    case 'addToShoppingCart':
       return {
         ...state,
-        shoppingCart: state.shoppingCart
-          ? [...state.shoppingCart, action.payload]
-          : [action.payload],
+        shoppingCart: [...state.shoppingCart, action.payload],
       };
-    case 'removeFromCart':
+
+    case 'removeFromShoppingCart':
       return {
         ...state,
-        shoppingCart: state.shoppingCart.filter((productId) => {
-          return productId !== action.payload;
+        shoppingCart: state.shoppingCart.filter((cartItem) => {
+          return cartItem !== action.payload;
         }),
       };
+
     case 'login':
       return {
         ...state,
@@ -31,6 +22,12 @@ const rootReducer = (state = initialState, action = {}) => {
           id: action.payload.userId,
           role: action.payload.userRole,
         },
+      };
+
+    case 'removeAllFromShoppingCart':
+      return {
+        ...state,
+        shoppingCart: [],
       };
 
     default:

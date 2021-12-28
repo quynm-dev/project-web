@@ -1,13 +1,13 @@
-export const addToCart = (productId) => {
+export const addToShoppingCart = (productId) => {
   return {
-    type: 'addToCart',
+    type: 'addToShoppingCart',
     payload: productId,
   };
 };
 
-export const removeFromCart = (productId) => {
+export const removeFromShoppingCart = (productId) => {
   return {
-    type: 'removeFromCart',
+    type: 'removeFromShoppingCart',
     payload: productId,
   };
 };
@@ -20,5 +20,12 @@ export const login = (token, userId, userRole) => {
       userId,
       userRole,
     },
+  };
+};
+
+export const removeAllFromShoppingCart = () => {
+  return {
+    type: 'removeAllFromShoppingCart',
+    payload: {},
   };
 };

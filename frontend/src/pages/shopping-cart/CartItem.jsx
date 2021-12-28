@@ -10,7 +10,9 @@ import {
 import { PropTypes } from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/actions';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { removeFromShoppingCart } from '../../redux/actions';
 
 function CartItem({
   cartItemName,
@@ -21,6 +23,7 @@ function CartItem({
   cartItemId,
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (e) => {
@@ -28,7 +31,11 @@ function CartItem({
   };
 
   const handleRemoveCartItem = () => {
-    dispatch(removeFromCart(cartItemId));
+    dispatch(removeFromShoppingCart(cartItemId));
+  };
+
+  const handleRedirectProductDetail = () => {
+    navigate(`/products/${cartItemId}`);
   };
 
   return (
@@ -44,7 +51,10 @@ function CartItem({
       }}
     >
       <Box sx={{ display: 'flex' }}>
-        <Box sx={{ paddingRight: '20px' }}>
+        <Box
+          sx={{ paddingRight: '20px', cursor: 'pointer' }}
+          onClick={handleRedirectProductDetail}
+        >
           <img
             src={cartItemImageUrl}
             alt={cartItemName}
@@ -58,7 +68,16 @@ function CartItem({
             justifyContent: 'space-between',
           }}
         >
-          <Box sx={{ fontWeight: 'bold' }}>{cartItemName}</Box>
+          <Link
+            style={{
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+            to={`/products/${cartItemId}`}
+          >
+            {cartItemName}
+          </Link>
           <Box sx={{ color: 'gray' }}>Giá: {cartItemPrice} $</Box>
           <Box sx={{ display: 'flex' }}>
             <Box sx={{ paddingRight: '50px' }}>

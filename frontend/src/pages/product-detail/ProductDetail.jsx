@@ -13,7 +13,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/actions';
+import { addToShoppingCart } from '../../redux/actions';
 
 import axiosClient from '../../api/axios';
 
@@ -25,7 +25,7 @@ function ProductDetail() {
   const { id } = useParams();
 
   const handleAddToCart = () => {
-    dispatch(addToCart(parseInt(id, 10)));
+    dispatch(addToShoppingCart(parseInt(id, 10)));
   };
 
   useEffect(() => {
