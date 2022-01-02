@@ -7,6 +7,8 @@ import {
   Select,
   FormControl,
   Button,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -17,6 +19,10 @@ import Loading from '../../../../components/loading/Loading';
 function AdminUserEdit() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
   const [role, setRole] = useState(
     useSelector((state) => {
       return state.user.role;
@@ -33,11 +39,22 @@ function AdminUserEdit() {
         role,
       })
       .then(() => {
-        navigate('/admin/users');
+        setSnackbarMessage('Edit sucess');
+        setIsErrorSnackbarMessage(false);
+        setShowSnackbar(true);
+        setTimeout(() => {
+          navigate('/admin/users');
+        }, 1000);
       })
       .catch((err) => {
-        console.log(err);
+        setSnackbarMessage(err.response.data.message);
+        setIsErrorSnackbarMessage(true);
+        setShowSnackbar(true);
       });
+  };
+
+  const handleCloseSnackbar = () => {
+    setShowSnackbar(false);
   };
 
   const handleNameChange = (event) => {
@@ -53,6 +70,7 @@ function AdminUserEdit() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     axiosClient
       .get(`/users/${id}`)
       .then((res) => {
@@ -62,12 +80,13 @@ function AdminUserEdit() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+    setIsLoading(false);
+  }, [id, navigate]);
 
   return (
     <form>
       <Box>
-        {name !== '' ? (
+        {!isLoading ? (
           <Box
             sx={{
               display: 'flex',
@@ -136,6 +155,15 @@ function AdminUserEdit() {
           <Loading />
         )}
       </Box>
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert severity={isErrorSnackbarMessage ? 'error' : 'success'}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </form>
   );
 }

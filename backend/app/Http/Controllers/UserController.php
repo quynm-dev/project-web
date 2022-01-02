@@ -69,6 +69,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'username' => 'required|unique:users',
+            'role' => 'required'
+        ]);
         $user = User::find($id);
 
         $user->update($request->all());
