@@ -18,12 +18,17 @@ import Loading from '../../../../components/loading/Loading';
 
 function AdminUserEdit() {
   const [name, setName] = useState('');
+  const [editedName, setEditedName] = useState('');
   const [username, setUsername] = useState('');
+  const [editedUsername, setEditedUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [role, setRole] = useState(
+  const role = useSelector((state) => {
+    return state.user.role;
+  });
+  const [editedRole, setEditedRole] = useState(
     useSelector((state) => {
       return state.user.role;
     }),
@@ -32,11 +37,19 @@ function AdminUserEdit() {
   const { id } = useParams();
 
   const handleEdit = () => {
+    if (
+      editedName === name &&
+      editedRole === role &&
+      editedUsername === username
+    ) {
+      navigate('/admin/users');
+      return;
+    }
     axiosClient
       .put(`/users/${id}`, {
-        name,
-        username,
-        role,
+        name: editedName,
+        username: editedUsername,
+        role: editedRole,
       })
       .then(() => {
         setSnackbarMessage('Edit sucess');
@@ -58,15 +71,15 @@ function AdminUserEdit() {
   };
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    setEditedName(event.target.value);
   };
 
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    setEditedUsername(event.target.value);
   };
 
   const handleRoleChange = (event) => {
-    setRole(event.target.value);
+    setEditedRole(event.target.value);
   };
 
   useEffect(() => {
@@ -75,7 +88,9 @@ function AdminUserEdit() {
       .get(`/users/${id}`)
       .then((res) => {
         setName(res.data.name);
+        setEditedName(res.data.name);
         setUsername(res.data.username);
+        setEditedUsername(res.data.username);
       })
       .catch((err) => {
         console.log(err);
@@ -108,7 +123,7 @@ function AdminUserEdit() {
                   sx={{ width: '300px' }}
                   id="name"
                   name="name"
-                  value={name}
+                  value={editedName}
                   onChange={handleNameChange}
                 />
               </Box>
@@ -124,7 +139,7 @@ function AdminUserEdit() {
                   sx={{ width: '300px' }}
                   id="username"
                   name="username"
-                  value={username}
+                  value={editedUsername}
                   onChange={handleUsernameChange}
                 />
               </Box>
@@ -135,7 +150,7 @@ function AdminUserEdit() {
                     <Select
                       labelId="role-label"
                       label="Role"
-                      defaultValue={role}
+                      defaultValue={editedRole}
                       onChange={handleRoleChange}
                     >
                       <MenuItem value="user">user</MenuItem>
