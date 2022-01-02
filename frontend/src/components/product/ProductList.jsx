@@ -17,7 +17,7 @@ function ProductList() {
 
   useEffect(() => {
     axiosClient
-      .get(`/products?page=${page}`)
+      .get(`/products-pagination?page=${page}`)
       .then((res) => {
         setProducts(res.data);
         if (page === 1) {

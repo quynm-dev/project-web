@@ -9,7 +9,6 @@ import {
   Button,
   Container,
 } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -18,6 +17,7 @@ import { addToShoppingCart } from '../../redux/actions';
 import axiosClient from '../../api/axios';
 
 import BestSeller from '../../components/best-seller/BestSeller';
+import Loading from '../../components/loading/Loading';
 
 function ProductDetail() {
   const [product, setProduct] = useState('');
@@ -133,10 +133,10 @@ function ProductDetail() {
                   <Box>
                     <Box sx={{ width: 120 }}>
                       <FormControl fullWidth>
-                        <InputLabel id="quantity-label">Số lượng</InputLabel>
+                        <InputLabel id="quantity-label">Quantity</InputLabel>
                         <Select
                           labelId="quantity-label"
-                          label="quantity"
+                          label="Quantity"
                           defaultValue={100}
                         >
                           <MenuItem value={100}>100</MenuItem>
@@ -163,9 +163,9 @@ function ProductDetail() {
         </Box>
       ) : (
         <Box
-          sx={{ display: 'flex', justifyContent: 'center', paddingY: '30px' }}
+          sx={{ display: 'flex', justifyContent: 'center', paddingY: '100px' }}
         >
-          <LoadingButton loading />
+          <Loading />
         </Box>
       )}
     </Box>

@@ -18,8 +18,7 @@ class ProductController extends Controller
         return DB::table('products')
         ->join('brands', 'products.brand_id', 'brands.id')
         ->select('products.*', 'brands.name as brand_name')
-        ->paginate(9)
-        ->all();
+        ->get();
     }
 
     /**
@@ -126,5 +125,13 @@ class ProductController extends Controller
         ->orderBy('rate_count', 'desc')
         ->limit(8)
         ->get();
+    }
+
+    public function getProductsPagination() {
+        return DB::table('products')
+        ->join('brands', 'products.brand_id', 'brands.id')
+        ->select('products.*', 'brands.name as brand_name')
+        ->paginate(9)
+        ->all();
     }
 }

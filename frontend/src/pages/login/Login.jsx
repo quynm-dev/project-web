@@ -10,7 +10,7 @@ import {
   Alert,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import axiosClient from '../../api/axios';
 import { login } from '../../redux/actions';
@@ -23,6 +23,9 @@ function Login() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const role = useSelector((state) => {
+    return state.user.role;
+  });
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -42,13 +45,19 @@ function Login() {
         username,
         password,
       })
-      .then((res) => {
-        dispatch(login(res.data.token, res.data.user.id, res.data.user.role));
+      .then(async (res) => {
+        await dispatch(
+          login(res.data.token, res.data.user.id, res.data.user.role),
+        );
         setSnackbarMessage('Login success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {
-          navigate('/');
+          if (role === 'admin') {
+            navigate('/admin/users');
+          } else {
+            navigate('/');
+          }
         }, 1000);
       })
       .catch((err) => {

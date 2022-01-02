@@ -9,10 +9,17 @@ import ShoppingCart from './pages/shopping-cart/ShoppingCart';
 import ProductDetail from './pages/product-detail/ProductDetail';
 import Register from './pages/register/Register';
 import NotFound from './pages/not-found/NotFound';
+import AdminProduct from './pages/admin/products/admin-products/AdminProduct';
+import AdminUser from './pages/admin/users/admin-users/AdminUser';
+import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
 
 const App = () => {
   const token = useSelector((state) => {
     return state.user ? state.user.token : '';
+  });
+
+  const role = useSelector((state) => {
+    return state.user.role;
   });
 
   return (
@@ -25,6 +32,16 @@ const App = () => {
               <Route path="/products" element={<Product />} />
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/shopping-cart" element={<ShoppingCart />} />
+            </>
+          ) : (
+            ''
+          )}
+
+          {role === 'admin' ? (
+            <>
+              <Route path="/admin/products" element={<AdminProduct />} />
+              <Route path="/admin/users" element={<AdminUser />} />
+              <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
             </>
           ) : (
             ''
