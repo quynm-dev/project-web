@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BrandController;
 use App\Models\Product;
 use App\Models\User;
 
@@ -28,6 +29,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::resource('/products', ProductController::class);
+
+Route::resource('/brands', BrandController::class);
 
 Route::post('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);

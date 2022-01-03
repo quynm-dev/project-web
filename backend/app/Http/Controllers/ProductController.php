@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -39,13 +40,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->user()->can('create', Product::class)) {
-            $product = Product::create($request->all());
 
-            return response()->json($product, 201);
-        }
-
-        return response()->json(['message' => 'Forbidden'], 403);
     }
 
     /**
@@ -83,13 +78,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        if(auth()->user()->can('update', $product)) {
-            $product->update($request->all());
+        $request->validate([
+            'name' => 'required|string|unique:products,name,'.$product->id,
+            'brand_name' => 'required|string',
+            'description' => 'required|string',
+            'pricing' => 'required',
+            'discount' => 'required',
+            'average_star' => 'required',
+            'rate_count' => 'required',
+            'product_image_url' => 'required|string'
+        ]);
 
-            return response()->json($product, 200);
-        }
+        $product->update($request->all());
 
-        return response()->json(['message' => 'Forbidden'], 403);
+        $brand = Brand::where('name', $request->brand_name)->first();
+        $product->brand_id = $brand->id;
+        $product->save();
     }
 
     /**
@@ -100,14 +104,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if(auth()->user()->can('delete', $product)) {
-            $product->options()->delete();
-            $product->delete();
-
-            return response()->json(null, 204);
-        }
-
-        return response()->json(['message' => 'Forbidden'], 403);
+        $product->delete();
     }
 
     public function getCartItems(Request $request) {

@@ -12,6 +12,7 @@ import NotFound from './pages/not-found/NotFound';
 import AdminProduct from './pages/admin/products/admin-products/AdminProduct';
 import AdminUser from './pages/admin/users/admin-users/AdminUser';
 import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
+import AdminProductEdit from './pages/admin/products/admin-product-edit/AdminProductEdit';
 
 const App = () => {
   const token = useSelector((state) => {
@@ -42,6 +43,10 @@ const App = () => {
               <Route path="/admin/products" element={<AdminProduct />} />
               <Route path="/admin/users" element={<AdminUser />} />
               <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
+              <Route
+                path="/admin/products/:id/edit"
+                element={<AdminProductEdit />}
+              />
             </>
           ) : (
             ''

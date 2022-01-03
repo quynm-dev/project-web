@@ -11,46 +11,27 @@ import {
   Alert,
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import axiosClient from '../../../../api/axios';
 
 import Loading from '../../../../components/loading/Loading';
 
 function AdminUserEdit() {
-  const [name, setName] = useState('');
-  const [editedName, setEditedName] = useState('');
-  const [username, setUsername] = useState('');
-  const [editedUsername, setEditedUsername] = useState('');
+  const [user, setUser] = useState({});
+  const [editedUser, setEditedUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const role = useSelector((state) => {
-    return state.user.role;
-  });
-  const [editedRole, setEditedRole] = useState(
-    useSelector((state) => {
-      return state.user.role;
-    }),
-  );
   const navigate = useNavigate();
   const { id } = useParams();
 
   const handleEdit = () => {
-    if (
-      editedName === name &&
-      editedRole === role &&
-      editedUsername === username
-    ) {
+    if (JSON.stringify(editedUser) === JSON.stringify(user)) {
       navigate('/admin/users');
       return;
     }
     axiosClient
-      .put(`/users/${id}`, {
-        name: editedName,
-        username: editedUsername,
-        role: editedRole,
-      })
+      .put(`/users/${id}`, editedUser)
       .then(() => {
         setSnackbarMessage('Edit sucess');
         setIsErrorSnackbarMessage(false);
@@ -70,16 +51,8 @@ function AdminUserEdit() {
     setShowSnackbar(false);
   };
 
-  const handleNameChange = (event) => {
-    setEditedName(event.target.value);
-  };
-
-  const handleUsernameChange = (event) => {
-    setEditedUsername(event.target.value);
-  };
-
-  const handleRoleChange = (event) => {
-    setEditedRole(event.target.value);
+  const handleEditedUserChange = (event) => {
+    setEditedUser({ ...editedUser, [event.target.name]: event.target.value });
   };
 
   useEffect(() => {
@@ -87,15 +60,15 @@ function AdminUserEdit() {
     axiosClient
       .get(`/users/${id}`)
       .then((res) => {
-        setName(res.data.name);
-        setEditedName(res.data.name);
-        setUsername(res.data.username);
-        setEditedUsername(res.data.username);
+        setUser(res.data);
+        setEditedUser(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
   }, [id, navigate]);
 
   return (
@@ -123,8 +96,8 @@ function AdminUserEdit() {
                   sx={{ width: '300px' }}
                   id="name"
                   name="name"
-                  value={editedName}
-                  onChange={handleNameChange}
+                  value={editedUser.name}
+                  onChange={handleEditedUserChange}
                 />
               </Box>
               <Box sx={{ paddingY: '20px' }}>
@@ -139,8 +112,8 @@ function AdminUserEdit() {
                   sx={{ width: '300px' }}
                   id="username"
                   name="username"
-                  value={editedUsername}
-                  onChange={handleUsernameChange}
+                  value={editedUser.username}
+                  onChange={handleEditedUserChange}
                 />
               </Box>
               <Box sx={{ paddingY: '20px' }}>
@@ -150,8 +123,9 @@ function AdminUserEdit() {
                     <Select
                       labelId="role-label"
                       label="Role"
-                      defaultValue={editedRole}
-                      onChange={handleRoleChange}
+                      value={editedUser.role}
+                      onChange={handleEditedUserChange}
+                      name="role"
                     >
                       <MenuItem value="user">user</MenuItem>
                       <MenuItem value="admin">admin</MenuItem>
