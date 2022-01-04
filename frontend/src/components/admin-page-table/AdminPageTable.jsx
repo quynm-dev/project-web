@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { useNavigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import axiosClient from '../../api/axios';
@@ -43,8 +44,16 @@ export default function AdminPageTable({ columns, object, width }) {
     setPage(0);
   };
 
-  const handleRedirectEdit = (id) => {
+  const handleRedirectEditPage = (id) => {
     navigate(`/admin/${object}/${id}/edit`);
+  };
+
+  const handleRedirectAddPage = () => {
+    if (object === 'products') {
+      navigate(`/admin/products/add`);
+      return;
+    }
+    navigate('/register');
   };
 
   const handleDelete = (id) => {
@@ -59,79 +68,99 @@ export default function AdminPageTable({ columns, object, width }) {
   };
 
   return (
-    <Box sx={{ width: { width }, margin: 'auto', paddingY: '30px' }}>
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      {columns.map((column) => {
-                        if (column.id === 'edit') {
+    <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '30px',
+        }}
+      >
+        <Button onClick={handleRedirectAddPage}>
+          <AddCircleOutlineRoundedIcon
+            sx={{ color: 'black', fontSize: '25px' }}
+          />
+        </Button>
+      </Box>
+      <Box sx={{ width: { width }, margin: 'auto', paddingY: '30px' }}>
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth, fontWeight: 'bold' }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.id}
+                      >
+                        {columns.map((column) => {
+                          if (column.id === 'edit') {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                <Button
+                                  sx={{ marginLeft: '-20px', color: 'inherit' }}
+                                  onClick={() => handleRedirectEditPage(row.id)}
+                                >
+                                  <EditIcon />
+                                </Button>
+                              </TableCell>
+                            );
+                          }
+                          if (column.id === 'delete') {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                <Button
+                                  sx={{ marginLeft: '-10px', color: 'inherit' }}
+                                  onClick={() => handleDelete(row.id)}
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              </TableCell>
+                            );
+                          }
+                          const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              <Button
-                                sx={{ marginLeft: '-20px', color: 'inherit' }}
-                                onClick={() => handleRedirectEdit(row.id)}
-                              >
-                                <EditIcon />
-                              </Button>
+                              {column.format && typeof value === 'number'
+                                ? column.format(value)
+                                : value}
                             </TableCell>
                           );
-                        }
-                        if (column.id === 'delete') {
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              <Button
-                                sx={{ marginLeft: '-10px', color: 'inherit' }}
-                                onClick={() => handleDelete(row.id)}
-                              >
-                                <DeleteIcon />
-                              </Button>
-                            </TableCell>
-                          );
-                        }
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
     </Box>
   );
 }

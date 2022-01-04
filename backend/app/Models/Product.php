@@ -17,6 +17,7 @@ class Product extends Model
         'discount',
         'average_star',
         'rate_count',
+        'product_image_url'
     ];
 
     protected $hidden = [

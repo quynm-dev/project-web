@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return "product create page";
+
     }
 
     /**
@@ -40,7 +40,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|unique:products',
+            'brand_name' => 'required|string',
+            'description' => 'required|string',
+            'pricing' => 'required',
+            'discount' => 'required',
+            'average_star' => 'required',
+            'rate_count' => 'required',
+            'product_image_url' => 'required|string'
+        ]);
 
+        $brand = Brand::where('name', $request->brand_name)->first();
+
+        Product::create($request->all() + ['brand_id' => $brand->id]);
     }
 
     /**

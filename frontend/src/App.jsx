@@ -10,9 +10,11 @@ import ProductDetail from './pages/product-detail/ProductDetail';
 import Register from './pages/register/Register';
 import NotFound from './pages/not-found/NotFound';
 import AdminProduct from './pages/admin/products/admin-products/AdminProducts';
+import AdminProductEdit from './pages/admin/products/admin-product-edit/AdminProductEdit';
+import AdminProductAdd from './pages/admin/products/admin-product-add/AdminProductAdd';
 import AdminUser from './pages/admin/users/admin-users/AdminUsers';
 import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
-import AdminProductEdit from './pages/admin/products/admin-product-edit/AdminProductEdit';
+import AdminUserAdd from './pages/admin/users/admin-user-add/AdminUserAdd';
 
 const App = () => {
   const token = useSelector((state) => {
@@ -41,12 +43,15 @@ const App = () => {
           {role === 'admin' ? (
             <>
               <Route path="/admin/products" element={<AdminProduct />} />
-              <Route path="/admin/users" element={<AdminUser />} />
-              <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
               <Route
                 path="/admin/products/:id/edit"
                 element={<AdminProductEdit />}
               />
+              <Route path="/admin/products/add" element={<AdminProductAdd />} />
+
+              <Route path="/admin/users" element={<AdminUser />} />
+              <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
+              <Route path="/admin/users/add" element={<AdminUserAdd />} />
             </>
           ) : (
             ''

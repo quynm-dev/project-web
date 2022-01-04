@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Input, InputLabel, Snackbar, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import axiosClient from '../../api/axios';
 
@@ -13,6 +14,9 @@ function Register() {
   const [isErrorSnackbarMessage, setIsErrorSnackbarMessage] = useState(false);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
+  const role = useSelector((state) => {
+    return state.user.role;
+  });
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -47,6 +51,10 @@ function Register() {
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {
+          if (role === 'admin') {
+            navigate('/admin/users');
+            return;
+          }
           navigate('/login');
         }, 1000);
       })
