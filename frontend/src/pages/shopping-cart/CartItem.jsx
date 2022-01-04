@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { removeFromShoppingCart } from '../../redux/actions';
+import { removeFromShoppingCart, editCartItem } from '../../redux/actions';
 
 function CartItem({
   cartItemName,
@@ -24,15 +24,19 @@ function CartItem({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(cartItemQuantity);
-  const [size, setSize] = useState(cartItemSize);
+  const [cartItem, setCartItem] = useState({
+    quantity: cartItemQuantity,
+    size: cartItemSize,
+  });
 
-  const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
-  };
-
-  const handleSizeChange = (event) => {
-    setSize(event.target.value);
+  const handleCartItemChange = (event) => {
+    if (event.target.name === 'size') {
+      setCartItem({ ...cartItem, size: event.target.value });
+      dispatch(editCartItem(cartItemId, event.target.value, cartItem.quantity));
+      return;
+    }
+    setCartItem({ ...cartItem, quantity: event.target.value });
+    dispatch(editCartItem(cartItemId, cartItem.size, event.target.value));
   };
 
   const handleRemoveCartItem = () => {
@@ -93,8 +97,9 @@ function CartItem({
                   <Select
                     labelId="size-label"
                     label="Size"
-                    defaultValue={size}
-                    onChange={handleSizeChange}
+                    value={cartItem.size}
+                    onChange={handleCartItemChange}
+                    name="size"
                   >
                     <MenuItem value={38}>38</MenuItem>
                     <MenuItem value={39}>39</MenuItem>
@@ -112,8 +117,9 @@ function CartItem({
                   <Select
                     labelId="quantity-label"
                     label="quantity"
-                    defaultValue={quantity}
-                    onChange={handleQuantityChange}
+                    value={cartItem.quantity}
+                    name="quantity"
+                    onChange={handleCartItemChange}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -140,7 +146,7 @@ function CartItem({
         }}
       >
         <Box sx={{ color: '#f15e2c', fontWeight: 'bold' }}>
-          {quantity * cartItemPrice} $
+          {cartItem.quantity * cartItemPrice} $
         </Box>
         <Button
           variant="outlined"

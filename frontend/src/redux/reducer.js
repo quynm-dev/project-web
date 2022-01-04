@@ -14,6 +14,18 @@ const rootReducer = (state, action = {}) => {
         }),
       };
 
+    case 'editCartItem': {
+      return {
+        ...state,
+        shoppingCart: state.shoppingCart.map((shoppingCartItem) => {
+          if (shoppingCartItem.productId === action.payload.productId) {
+            return action.payload;
+          }
+          return shoppingCartItem;
+        }),
+      };
+    }
+
     case 'login':
       return {
         ...state,

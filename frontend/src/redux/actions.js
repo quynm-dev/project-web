@@ -12,6 +12,13 @@ export const removeFromShoppingCart = (productId) => {
   };
 };
 
+export const editCartItem = (productId, size, quantity) => {
+  return {
+    type: 'editCartItem',
+    payload: { productId, size, quantity },
+  };
+};
+
 export const login = (token, userId, userRole) => {
   return {
     type: 'login',
