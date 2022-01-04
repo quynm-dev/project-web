@@ -15,9 +15,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
-import axiosClient from '../../../api/axios';
+import axiosClient from '../../api/axios';
 
-export default function AdminTable({ columns, object, width }) {
+export default function AdminPageTable({ columns, object, width }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
@@ -82,12 +82,7 @@ export default function AdminTable({ columns, object, width }) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                    >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       {columns.map((column) => {
                         if (column.id === 'edit') {
                           return (
@@ -142,13 +137,13 @@ export default function AdminTable({ columns, object, width }) {
   );
 }
 
-AdminTable.propTypes = {
+AdminPageTable.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   object: PropTypes.string,
   width: PropTypes.string,
 };
 
-AdminTable.defaultProps = {
+AdminPageTable.defaultProps = {
   columns: [],
   object: '',
   width: '',

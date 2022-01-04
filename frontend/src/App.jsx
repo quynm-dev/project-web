@@ -9,8 +9,8 @@ import ShoppingCart from './pages/shopping-cart/ShoppingCart';
 import ProductDetail from './pages/product-detail/ProductDetail';
 import Register from './pages/register/Register';
 import NotFound from './pages/not-found/NotFound';
-import AdminProduct from './pages/admin/products/admin-products/AdminProduct';
-import AdminUser from './pages/admin/users/admin-users/AdminUser';
+import AdminProduct from './pages/admin/products/admin-products/AdminProducts';
+import AdminUser from './pages/admin/users/admin-users/AdminUsers';
 import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
 import AdminProductEdit from './pages/admin/products/admin-product-edit/AdminProductEdit';
 

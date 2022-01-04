@@ -123,7 +123,7 @@ function AdminUserEdit() {
                     <Select
                       labelId="role-label"
                       label="Role"
-                      value={editedUser.role}
+                      value={editedUser.role ? editedUser.role : ''}
                       onChange={handleEditedUserChange}
                       name="role"
                     >

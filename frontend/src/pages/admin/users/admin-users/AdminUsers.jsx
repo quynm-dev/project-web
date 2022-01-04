@@ -1,4 +1,4 @@
-import AdminTable from '../../admin-table/AdminTable';
+import AdminTable from '../../../../components/admin-page-table/AdminPageTable';
 
 const columns = [
   { id: 'name', label: 'Name' },

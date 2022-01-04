@@ -184,7 +184,7 @@ function AdminUserEdit() {
                       type="text"
                       sx={{ width: '300px' }}
                       id="average-star"
-                      name="average-star"
+                      name="average_star"
                       value={editedProduct.average_star}
                       onChange={handleEditedProductChange}
                     />
@@ -200,7 +200,7 @@ function AdminUserEdit() {
                       type="text"
                       sx={{ width: '300px' }}
                       id="rate-count"
-                      name="rate-count"
+                      name="rate_count"
                       value={editedProduct.rate_count}
                       onChange={handleEditedProductChange}
                     />
@@ -215,7 +215,7 @@ function AdminUserEdit() {
                     <TextField
                       sx={{ width: '300px' }}
                       id="product-image-url"
-                      name="product-image-url"
+                      name="product_image_url"
                       value={editedProduct.product_image_url}
                       onChange={handleEditedProductChange}
                       multiline
@@ -228,7 +228,11 @@ function AdminUserEdit() {
                         <Select
                           labelId="brand-label"
                           label="Brand"
-                          defaultValue={editedProduct.brand_name}
+                          value={
+                            editedProduct.brand_name
+                              ? editedProduct.brand_name
+                              : ''
+                          }
                           onChange={handleEditedProductChange}
                           name="brand_name"
                         >
