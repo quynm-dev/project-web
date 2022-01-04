@@ -19,6 +19,13 @@ export const editCartItem = (productId, size, quantity) => {
   };
 };
 
+export const payment = () => {
+  return {
+    type: 'payment',
+    payload: {},
+  };
+};
+
 export const login = (token, userId, userRole) => {
   return {
     type: 'login',

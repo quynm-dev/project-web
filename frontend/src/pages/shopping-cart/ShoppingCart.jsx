@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Snackbar, Alert } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import CartItem from './CartItem';
 import axiosClient from '../../api/axios';
-import { removeAllFromShoppingCart } from '../../redux/actions';
+import { removeAllFromShoppingCart, payment } from '../../redux/actions';
 
 let cartItemsId = [];
 
 function ShoppingCart() {
   const shoppingCart = useSelector((state) => state.shoppingCart);
+  const [showSnackbar, setShowSnackbar] = useState(false);
   cartItemsId = shoppingCart.map((shoppingCartItem) => {
     return shoppingCartItem.productId;
   });
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [cartItems, setCartItems] = useState([]);
 
@@ -24,8 +23,16 @@ function ShoppingCart() {
     window.location.reload();
   };
 
-  const handleContinueShopping = () => {
-    navigate('/products');
+  const handleCloseSnackbar = () => {
+    setShowSnackbar(false);
+  };
+
+  const handlePayment = () => {
+    setShowSnackbar(true);
+    dispatch(payment());
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   useEffect(() => {
@@ -95,10 +102,17 @@ function ShoppingCart() {
         <Button variant="contained" onClick={handleRemoveAllShoppingCart}>
           XOÁ HẾT
         </Button>
-        <Button variant="contained" onClick={handleContinueShopping}>
-          TIẾP TỤC MUA HÀNG
+        <Button variant="contained" onClick={handlePayment}>
+          THANH TOÁN
         </Button>
       </Box>
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+      >
+        <Alert severity="success">Payment Succes</Alert>
+      </Snackbar>
     </Box>
   );
 }
