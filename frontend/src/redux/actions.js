@@ -1,7 +1,7 @@
-export const addToShoppingCart = (productId) => {
+export const addToShoppingCart = (productId, quantity = 1, size = 38) => {
   return {
     type: 'addToShoppingCart',
-    payload: productId,
+    payload: { productId, quantity, size },
   };
 };
 

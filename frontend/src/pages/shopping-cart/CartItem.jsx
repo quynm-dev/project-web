@@ -24,14 +24,20 @@ function CartItem({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(cartItemQuantity);
+  const [size, setSize] = useState(cartItemSize);
 
-  const handleQuantityChange = (e) => {
-    setQuantity(e.target.value);
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
   };
 
   const handleRemoveCartItem = () => {
     dispatch(removeFromShoppingCart(cartItemId));
+    window.location.reload();
   };
 
   const handleRedirectProductDetail = () => {
@@ -87,11 +93,14 @@ function CartItem({
                   <Select
                     labelId="size-label"
                     label="Size"
-                    defaultValue={cartItemSize}
+                    defaultValue={size}
+                    onChange={handleSizeChange}
                   >
                     <MenuItem value={38}>38</MenuItem>
                     <MenuItem value={39}>39</MenuItem>
                     <MenuItem value={40}>40</MenuItem>
+                    <MenuItem value={41}>41</MenuItem>
+                    <MenuItem value={42}>42</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -103,12 +112,19 @@ function CartItem({
                   <Select
                     labelId="quantity-label"
                     label="quantity"
-                    defaultValue={cartItemQuantity}
+                    defaultValue={quantity}
                     onChange={handleQuantityChange}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                    <MenuItem value={7}>7</MenuItem>
+                    <MenuItem value={8}>8</MenuItem>
+                    <MenuItem value={9}>9</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
                   </Select>
                 </FormControl>
               </Box>

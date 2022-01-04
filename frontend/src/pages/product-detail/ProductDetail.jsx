@@ -21,11 +21,21 @@ import Loading from '../../components/loading/Loading';
 
 function ProductDetail() {
   const [product, setProduct] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState(38);
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const handleAddToCart = () => {
-    dispatch(addToShoppingCart(parseInt(id, 10)));
+    dispatch(addToShoppingCart(parseInt(id, 10), quantity, size));
+  };
+
+  const handleQuantityChange = (event) => {
+    setQuantity(event.target.value);
+  };
+
+  const handleSizeChange = (event) => {
+    setSize(event.target.value);
   };
 
   useEffect(() => {
@@ -122,10 +132,13 @@ function ProductDetail() {
                           labelId="size-label"
                           label="Size"
                           defaultValue={38}
+                          onChange={handleSizeChange}
                         >
                           <MenuItem value={38}>38</MenuItem>
                           <MenuItem value={39}>39</MenuItem>
                           <MenuItem value={40}>40</MenuItem>
+                          <MenuItem value={41}>41</MenuItem>
+                          <MenuItem value={42}>42</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>
@@ -137,11 +150,19 @@ function ProductDetail() {
                         <Select
                           labelId="quantity-label"
                           label="Quantity"
-                          defaultValue={100}
+                          defaultValue={1}
+                          onChange={handleQuantityChange}
                         >
-                          <MenuItem value={100}>100</MenuItem>
-                          <MenuItem value={200}>200</MenuItem>
-                          <MenuItem value={300}>300</MenuItem>
+                          <MenuItem value={1}>1</MenuItem>
+                          <MenuItem value={2}>2</MenuItem>
+                          <MenuItem value={3}>3</MenuItem>
+                          <MenuItem value={4}>4</MenuItem>
+                          <MenuItem value={5}>5</MenuItem>
+                          <MenuItem value={6}>6</MenuItem>
+                          <MenuItem value={7}>7</MenuItem>
+                          <MenuItem value={8}>8</MenuItem>
+                          <MenuItem value={9}>9</MenuItem>
+                          <MenuItem value={10}>10</MenuItem>
                         </Select>
                       </FormControl>
                     </Box>

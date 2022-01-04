@@ -9,8 +9,8 @@ const rootReducer = (state, action = {}) => {
     case 'removeFromShoppingCart':
       return {
         ...state,
-        shoppingCart: state.shoppingCart.filter((cartItem) => {
-          return cartItem !== action.payload;
+        shoppingCart: state.shoppingCart.filter((shoppingCartItem) => {
+          return shoppingCartItem.productId !== action.payload;
         }),
       };
 

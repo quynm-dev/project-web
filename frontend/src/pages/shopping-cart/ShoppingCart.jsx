@@ -7,8 +7,13 @@ import CartItem from './CartItem';
 import axiosClient from '../../api/axios';
 import { removeAllFromShoppingCart } from '../../redux/actions';
 
+let cartItemsId = [];
+
 function ShoppingCart() {
-  const cartItemsId = useSelector((state) => state.shoppingCart);
+  const shoppingCart = useSelector((state) => state.shoppingCart);
+  cartItemsId = shoppingCart.map((shoppingCartItem) => {
+    return shoppingCartItem.productId;
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,6 +21,7 @@ function ShoppingCart() {
 
   const handleRemoveAllShoppingCart = () => {
     dispatch(removeAllFromShoppingCart());
+    window.location.reload();
   };
 
   const handleContinueShopping = () => {
@@ -33,7 +39,7 @@ function ShoppingCart() {
       .catch((err) => {
         console.log(err);
       });
-  }, [cartItemsId]);
+  }, []);
 
   return (
     <Box>
@@ -63,13 +69,15 @@ function ShoppingCart() {
           {cartItems.length} sản phẩm
         </Box>
       </Box>
-      {cartItems.map((cartItem) => {
+      {cartItems.map((cartItem, index) => {
         return (
           <CartItem
             cartItemName={cartItem.name}
             cartItemPrice={cartItem.pricing}
-            cartItemSize={cartItem.size}
-            cartItemQuantity={cartItem.quantity}
+            cartItemSize={shoppingCart[index] ? shoppingCart[index].size : 38}
+            cartItemQuantity={
+              shoppingCart[index] ? shoppingCart[index].quantity : 1
+            }
             cartItemImageUrl={cartItem.product_image_url}
             cartItemId={cartItem.id}
             key={cartItem.id}

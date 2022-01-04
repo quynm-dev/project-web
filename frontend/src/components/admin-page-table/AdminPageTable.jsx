@@ -21,7 +21,6 @@ export default function AdminPageTable({ columns, object, width }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
-  const [refresh, setRefresh] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function AdminPageTable({ columns, object, width }) {
       .catch((err) => {
         console.log(err);
       });
-  }, [refresh, object]);
+  }, [object]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -52,7 +51,7 @@ export default function AdminPageTable({ columns, object, width }) {
     axiosClient
       .delete(`/${object}/${id}`)
       .then(() => {
-        setRefresh(refresh + 1);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
