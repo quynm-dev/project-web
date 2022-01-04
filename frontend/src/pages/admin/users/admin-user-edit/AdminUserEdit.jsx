@@ -33,7 +33,7 @@ function AdminUserEdit() {
     axiosClient
       .put(`/users/${id}`, editedUser)
       .then(() => {
-        setSnackbarMessage('Edit sucess');
+        setSnackbarMessage('Edit success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {

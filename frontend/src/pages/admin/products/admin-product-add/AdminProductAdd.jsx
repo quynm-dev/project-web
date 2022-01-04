@@ -30,7 +30,7 @@ function AdminUserAdd() {
     axiosClient
       .post('/products', product)
       .then(() => {
-        setSnackbarMessage('Add sucess');
+        setSnackbarMessage('Add success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {

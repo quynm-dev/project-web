@@ -98,4 +98,15 @@ class UserController extends Controller
 
         $user->delete();
     }
+
+    public function updatePassword(Request $request, $id) {
+        $request->validate([
+            'current_password' => 'required|string|min:8',
+            'new_password' => 'required|string|confirmed|min:8'
+        ]);
+
+        $user = User::find($id);
+
+        $user->update(['password' => bcrypt($request->input('new_password'))]);
+    }
 }

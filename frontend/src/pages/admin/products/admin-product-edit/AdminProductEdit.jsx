@@ -35,7 +35,7 @@ function AdminUserEdit() {
     axiosClient
       .put(`/products/${id}`, editedProduct)
       .then(() => {
-        setSnackbarMessage('Edit sucess');
+        setSnackbarMessage('Edit success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
         setTimeout(() => {

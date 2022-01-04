@@ -46,12 +46,12 @@ function Login() {
         password,
       })
       .then(async (res) => {
-        await dispatch(
-          login(res.data.token, res.data.user.id, res.data.user.role),
-        );
         setSnackbarMessage('Login success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
+        await dispatch(
+          login(res.data.token, res.data.user.id, res.data.user.role),
+        );
         setTimeout(() => {
           if (role === 'admin') {
             navigate('/admin/users');
@@ -82,7 +82,11 @@ function Login() {
             <img src="/images/login/logo-ananas.svg" alt="banner" />
           </Box>
           <Box
-            sx={{ display: 'flex', justifyContent: 'center', paddingY: '50px' }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              paddingY: '50px',
+            }}
           >
             <Box>
               <Box sx={{ paddingY: '20px' }}>

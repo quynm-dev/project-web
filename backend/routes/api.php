@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::resource('/users', UserController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/users/{id}/update-password', [UserController::class, 'updatePassword']);
 
 Route::resource('/products', ProductController::class);
 
