@@ -35,7 +35,10 @@ const rootReducer = (state, action = {}) => {
       return {
         ...state,
         shoppingCart: state.shoppingCart.filter((shoppingCartItem) => {
-          return shoppingCartItem.productId !== action.payload;
+          return (
+            shoppingCartItem.productId !== action.payload.productId ||
+            shoppingCartItem.size !== action.payload.size
+          );
         }),
       };
 
@@ -43,8 +46,20 @@ const rootReducer = (state, action = {}) => {
       return {
         ...state,
         shoppingCart: state.shoppingCart.map((shoppingCartItem) => {
-          if (shoppingCartItem.productId === action.payload.productId) {
+          if (
+            shoppingCartItem.productId === action.payload.productId &&
+            shoppingCartItem.size !== action.payload.size
+          ) {
             return action.payload;
+          }
+          if (
+            shoppingCartItem.productId === action.payload.productId &&
+            shoppingCartItem.size === action.payload.size
+          ) {
+            return {
+              ...shoppingCartItem,
+              quantity: shoppingCartItem.quantity + action.payload.quantity,
+            };
           }
           return shoppingCartItem;
         }),

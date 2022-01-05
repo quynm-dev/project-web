@@ -76,21 +76,29 @@ function ShoppingCart() {
           {shoppingCart.length} sản phẩm
         </Box>
       </Box>
-      {cartItems.map((cartItem, index) => {
-        return (
-          <CartItem
-            cartItemName={cartItem.name}
-            cartItemPrice={cartItem.pricing}
-            cartItemSize={shoppingCart[index] ? shoppingCart[index].size : 38}
-            cartItemQuantity={
-              shoppingCart[index] ? shoppingCart[index].quantity : 1
-            }
-            cartItemImageUrl={cartItem.product_image_url}
-            cartItemId={cartItem.id}
-            key={cartItem.id + cartItem.size}
-          />
-        );
-      })}
+      {shoppingCart.length === 0 || cartItems.length === 0
+        ? ''
+        : shoppingCart.map((shoppingCartItem, index) => {
+            const cartItem = cartItems.filter((item) => {
+              return item.id === shoppingCartItem.productId;
+            })[0];
+
+            return (
+              <CartItem
+                cartItemName={cartItem.name}
+                cartItemPrice={cartItem.pricing}
+                cartItemSize={
+                  shoppingCart[index] ? shoppingCart[index].size : 38
+                }
+                cartItemQuantity={
+                  shoppingCart[index] ? shoppingCart[index].quantity : 1
+                }
+                cartItemImageUrl={cartItem.product_image_url}
+                cartItemId={cartItem.id}
+                key={cartItem.id + shoppingCart[index].size}
+              />
+            );
+          })}
       <Box
         sx={{
           display: 'flex',

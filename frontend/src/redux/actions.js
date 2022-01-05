@@ -5,10 +5,10 @@ export const addToShoppingCart = (productId, quantity = 1, size = 38) => {
   };
 };
 
-export const removeFromShoppingCart = (productId) => {
+export const removeFromShoppingCart = (productId, size) => {
   return {
     type: 'removeFromShoppingCart',
-    payload: productId,
+    payload: { productId, size },
   };
 };
 

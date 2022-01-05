@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -143,5 +144,16 @@ class ProductController extends Controller
         ->select('products.*', 'brands.name as brand_name')
         ->paginate(9)
         ->all();
+    }
+
+    public function getProductOptions($id) {
+        return DB::table('options')->where('product_id', $id)->get();
+    }
+
+    public function updateProductOptions(Request $request, $id) {
+        DB::table('options')
+        ->where('product_id', $id)
+        ->where('size', $request->input('size'))
+        ->decrement('quantity', (int)($request->input('quantity')));
     }
 }

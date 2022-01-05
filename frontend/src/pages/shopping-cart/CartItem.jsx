@@ -40,7 +40,7 @@ function CartItem({
   };
 
   const handleRemoveCartItem = () => {
-    dispatch(removeFromShoppingCart(cartItemId));
+    dispatch(removeFromShoppingCart(cartItemId, cartItem.size));
     window.location.reload();
   };
 
