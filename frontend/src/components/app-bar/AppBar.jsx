@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function ButtonAppBar() {
-  const cartItemsId = useSelector((state) => state.shoppingCart);
+  const shoppingCart = useSelector((state) => state.shoppingCart);
   const token = useSelector((state) => {
     return state.user ? state.user.token : '';
   });
@@ -112,7 +112,7 @@ export default function ButtonAppBar() {
                   fontWeight: 'bold',
                 }}
               >
-                Giỏ hàng ({cartItemsId.length})
+                Giỏ hàng ({shoppingCart.length})
               </Box>
             </Box>
           </Link>

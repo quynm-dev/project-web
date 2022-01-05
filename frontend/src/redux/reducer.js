@@ -1,10 +1,35 @@
 const rootReducer = (state, action = {}) => {
   switch (action.type) {
-    case 'addToShoppingCart':
+    case 'addToShoppingCart': {
+      let checkAddedKey = 0;
+
+      const shoppingCart = state.shoppingCart.map((shoppingCartItem) => {
+        if (
+          shoppingCartItem.productId === action.payload.productId &&
+          shoppingCartItem.size === action.payload.size
+        ) {
+          checkAddedKey = 1;
+
+          return {
+            ...shoppingCartItem,
+            quantity: shoppingCartItem.quantity + action.payload.quantity,
+          };
+        }
+
+        return shoppingCartItem;
+      });
+
+      if (checkAddedKey) {
+        return {
+          ...state,
+          shoppingCart: shoppingCart,
+        };
+      }
       return {
         ...state,
         shoppingCart: [...state.shoppingCart, action.payload],
       };
+    }
 
     case 'removeFromShoppingCart':
       return {

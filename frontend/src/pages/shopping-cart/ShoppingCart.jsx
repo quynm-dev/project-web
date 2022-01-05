@@ -73,7 +73,7 @@ function ShoppingCart() {
             fontWeight: 'bold',
           }}
         >
-          {cartItems.length} sản phẩm
+          {shoppingCart.length} sản phẩm
         </Box>
       </Box>
       {cartItems.map((cartItem, index) => {
@@ -87,7 +87,7 @@ function ShoppingCart() {
             }
             cartItemImageUrl={cartItem.product_image_url}
             cartItemId={cartItem.id}
-            key={cartItem.id}
+            key={cartItem.id + cartItem.size}
           />
         );
       })}
