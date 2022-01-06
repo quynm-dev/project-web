@@ -149,11 +149,4 @@ class ProductController extends Controller
     public function getProductOptions($id) {
         return DB::table('options')->where('product_id', $id)->get();
     }
-
-    public function updateProductOptions(Request $request, $id) {
-        DB::table('options')
-        ->where('product_id', $id)
-        ->where('size', $request->input('size'))
-        ->decrement('quantity', (int)($request->input('quantity')));
-    }
 }

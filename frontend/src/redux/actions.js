@@ -1,7 +1,7 @@
-export const addToShoppingCart = (productId, quantity = 1, size = 38) => {
+export const addToShoppingCart = (productId, quantity, size, pricing) => {
   return {
     type: 'addToShoppingCart',
-    payload: { productId, quantity, size },
+    payload: { productId, quantity, size, pricing },
   };
 };
 
@@ -12,7 +12,13 @@ export const removeFromShoppingCart = (productId, size) => {
   };
 };
 
-export const editCartItemSize = (productId, size, quantity, previousSize) => {
+export const editCartItemSize = (
+  productId,
+  size,
+  quantity,
+  previousSize,
+  pricing,
+) => {
   return {
     type: 'editCartItemSize',
     payload: {
@@ -20,25 +26,20 @@ export const editCartItemSize = (productId, size, quantity, previousSize) => {
       size,
       quantity,
       previousSize,
+      pricing,
     },
   };
 };
 
-export const editCartItemQuantity = (productId, size, quantity) => {
+export const editCartItemQuantity = (productId, size, quantity, pricing) => {
   return {
     type: 'editCartItemQuantity',
     payload: {
       productId,
       size,
       quantity,
+      pricing,
     },
-  };
-};
-
-export const payment = () => {
-  return {
-    type: 'payment',
-    payload: {},
   };
 };
 

@@ -6,6 +6,9 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 
@@ -33,8 +36,12 @@ Route::resource('/products', ProductController::class);
 
 Route::resource('/brands', BrandController::class);
 
+Route::resource('/orders', OrderController::class);
+
+Route::resource('order-items', OrderItemController::class);
+
 Route::post('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);
 Route::get('/products-pagination', [ProductController::class, 'getProductsPagination']);
 Route::get('/products/{id}/options', [ProductController::class, 'getProductOptions']);
-Route::post('/products/{id}/options', [ProductController::class, 'updateProductOptions']);
+Route::post('/orders/{id}/order-items', [OrderController::class, 'createOrderItems']);

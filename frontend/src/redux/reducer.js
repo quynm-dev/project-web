@@ -107,13 +107,6 @@ const rootReducer = (state, action = {}) => {
       };
     }
 
-    case 'payment': {
-      return {
-        ...state,
-        shoppingCart: [],
-      };
-    }
-
     case 'login':
       return {
         ...state,

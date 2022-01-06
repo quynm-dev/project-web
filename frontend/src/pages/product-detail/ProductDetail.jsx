@@ -22,7 +22,7 @@ import BestSeller from '../../components/best-seller/BestSeller';
 import Loading from '../../components/loading/Loading';
 
 function ProductDetail() {
-  const [product, setProduct] = useState('');
+  const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [size, setSize] = useState(38);
@@ -36,18 +36,9 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     setShowSnackbar(true);
-    dispatch(addToShoppingCart(parseInt(id, 10), quantity, size));
-    axiosClient
-      .post(`products/${id}/options`, {
-        size,
-        quantity,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(
+      addToShoppingCart(parseInt(id, 10), quantity, size, product.pricing),
+    );
     setTimeout(() => {
       window.location.reload();
     }, 500);
@@ -159,7 +150,7 @@ function ProductDetail() {
                       fontWeight: 'bold',
                     }}
                   >
-                    {product.pricing} $
+                    {product.pricing * quantity} $
                   </Box>
                   <Box
                     sx={{

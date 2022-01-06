@@ -51,7 +51,7 @@ function ProductList() {
               width="30%"
               id={product.id}
               key={product.id}
-              showHeartIcon
+              showHeartIcon={false}
             />
           );
         })}
