@@ -12,7 +12,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { removeFromShoppingCart, editCartItem } from '../../redux/actions';
+import {
+  removeFromShoppingCart,
+  editCartItemQuantity,
+  editCartItemSize,
+} from '../../redux/actions';
 
 function CartItem({
   cartItemName,
@@ -32,11 +36,20 @@ function CartItem({
   const handleCartItemChange = (event) => {
     if (event.target.name === 'size') {
       setCartItem({ ...cartItem, size: event.target.value });
-      dispatch(editCartItem(cartItemId, event.target.value, cartItem.quantity));
+      dispatch(
+        editCartItemSize(
+          cartItemId,
+          event.target.value,
+          cartItem.quantity,
+          cartItemSize,
+        ),
+      );
       return;
     }
     setCartItem({ ...cartItem, quantity: event.target.value });
-    dispatch(editCartItem(cartItemId, cartItem.size, event.target.value));
+    dispatch(
+      editCartItemQuantity(cartItemId, cartItem.size, event.target.value),
+    );
   };
 
   const handleRemoveCartItem = () => {

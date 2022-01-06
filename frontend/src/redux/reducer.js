@@ -42,25 +42,66 @@ const rootReducer = (state, action = {}) => {
         }),
       };
 
-    case 'editCartItem': {
+    case 'editCartItemSize': {
+      let cartItemDuplicateIndex = -1;
+      let cartItemIndex = -1;
+
+      let shoppingCart = state.shoppingCart.map((item, i) => {
+        if (
+          item.productId === action.payload.productId &&
+          item.size === action.payload.previousSize
+        ) {
+          cartItemIndex = i;
+        }
+
+        if (
+          item.productId === action.payload.productId &&
+          item.size === action.payload.size
+        ) {
+          cartItemDuplicateIndex = i;
+          return {
+            productId: item.productId,
+            size: item.size,
+            quantity: item.quantity + action.payload.quantity,
+          };
+        }
+
+        return item;
+      });
+
+      if (cartItemDuplicateIndex === -1) {
+        shoppingCart[cartItemIndex].size = action.payload.size;
+
+        return {
+          ...state,
+          shoppingCart: shoppingCart,
+        };
+      }
+
+      shoppingCart = shoppingCart.filter((item) => {
+        return (
+          item.productId !== action.payload.productId ||
+          item.size !== action.payload.previousSize
+        );
+      });
+
+      return {
+        ...state,
+        shoppingCart: shoppingCart,
+      };
+    }
+
+    case 'editCartItemQuantity': {
       return {
         ...state,
         shoppingCart: state.shoppingCart.map((shoppingCartItem) => {
           if (
             shoppingCartItem.productId === action.payload.productId &&
-            shoppingCartItem.size !== action.payload.size
+            shoppingCartItem.size === action.payload.size
           ) {
             return action.payload;
           }
-          if (
-            shoppingCartItem.productId === action.payload.productId &&
-            shoppingCartItem.size === action.payload.size
-          ) {
-            return {
-              ...shoppingCartItem,
-              quantity: shoppingCartItem.quantity + action.payload.quantity,
-            };
-          }
+
           return shoppingCartItem;
         }),
       };
