@@ -7,6 +7,8 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\Option;
+use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -113,6 +115,10 @@ class OrderController extends Controller
             $option = Option::where('product_id', $cartItem->productId)->where('size', $cartItem->size)->first();
 
             $option->orderItems()->sync([$orderItem->id]);
+
+            DB::table('options')->where('product_id', $cartItem->productId)
+            ->where('size', $cartItem->size)
+            ->decrement('quantity', $cartItem->quantity);
         }
     }
 }

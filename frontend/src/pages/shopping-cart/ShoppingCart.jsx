@@ -75,6 +75,7 @@ function ShoppingCart() {
         setIsErrorSnackbarMessage(true);
         setShowSnackbar(true);
       });
+    dispatch(removeAllFromShoppingCart());
   };
 
   useEffect(() => {
