@@ -17,6 +17,7 @@ import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
 import Profile from './pages/profile/Profile';
 import Order from './pages/order/Order';
 import OrderDetail from './pages/order-detail/OrderDetail';
+import AdminOrder from './pages/admin/orders/admin-orders/AdminOrder';
 
 const App = () => {
   const token = useSelector((state) => {
@@ -56,6 +57,8 @@ const App = () => {
 
               <Route path="/admin/users" element={<AdminUser />} />
               <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
+
+              <Route path="/admin/orders" element={<AdminOrder />} />
             </>
           ) : (
             ''

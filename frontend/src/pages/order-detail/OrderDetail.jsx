@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import CartItem from '../shopping-cart/CartItem';
 import axiosClient from '../../api/axios';
@@ -10,6 +11,9 @@ function OrderDetail() {
   const [totalPricing, setTotalPricing] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
+  const role = useSelector((state) => {
+    return state.user.role;
+  });
 
   const handleRedirectHomepage = () => {
     navigate('/');
@@ -29,7 +33,7 @@ function OrderDetail() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id, role]);
 
   return (
     <form>
@@ -92,9 +96,13 @@ function OrderDetail() {
             margin: '20px auto',
           }}
         >
-          <Button variant="contained" onClick={handleRedirectHomepage}>
-            TIẾP TỤC MUA SẮM
-          </Button>
+          {role === 'user' ? (
+            <Button variant="contained" onClick={handleRedirectHomepage}>
+              TIẾP TỤC MUA SẮM
+            </Button>
+          ) : (
+            ''
+          )}
         </Box>
       </Box>
     </form>

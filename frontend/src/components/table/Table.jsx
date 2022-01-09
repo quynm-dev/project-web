@@ -14,7 +14,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
 import axiosClient from '../../api/axios';
@@ -23,13 +23,14 @@ export default function AdminPageTable({ columns, object, width }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
+  const location = useLocation();
   const navigate = useNavigate();
   const userId = useSelector((state) => {
     return state.user.id;
   });
 
   useEffect(() => {
-    if (object === 'orders') {
+    if (location.pathname === '/orders') {
       axiosClient
         .get(`users/${userId}/orders`)
         .then((res) => {
@@ -48,7 +49,7 @@ export default function AdminPageTable({ columns, object, width }) {
           console.log(err);
         });
     }
-  }, [object, userId]);
+  }, [object, userId, location]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -88,19 +89,24 @@ export default function AdminPageTable({ columns, object, width }) {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          paddingTop: '30px',
-        }}
-      >
-        <Button onClick={handleRedirectAddPage}>
-          <AddCircleOutlineRoundedIcon
-            sx={{ color: 'black', fontSize: '25px' }}
-          />
-        </Button>
-      </Box>
+      {object !== 'orders' ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '30px',
+          }}
+        >
+          <Button onClick={handleRedirectAddPage}>
+            <AddCircleOutlineRoundedIcon
+              sx={{ color: 'black', fontSize: '25px' }}
+            />
+          </Button>
+        </Box>
+      ) : (
+        ''
+      )}
+
       <Box sx={{ width: { width }, margin: 'auto', paddingY: '30px' }}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
           <TableContainer sx={{ maxHeight: 440 }}>
@@ -133,6 +139,7 @@ export default function AdminPageTable({ columns, object, width }) {
                             ? () => handleRedirectOrderDetail(row.id)
                             : undefined
                         }
+                        sx={object === 'orders' ? { cursor: 'pointer' } : ''}
                       >
                         {columns.map((column) => {
                           if (column.id === 'edit') {
