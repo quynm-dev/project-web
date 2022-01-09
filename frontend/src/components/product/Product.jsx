@@ -46,6 +46,7 @@ function Product({
       sx={{ width: width, marginY: '20px' }}
       elevation={0}
       className="product"
+      variant="outlined"
     >
       <Box sx={{ position: 'relative' }}>
         <CardMedia

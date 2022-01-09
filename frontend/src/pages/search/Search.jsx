@@ -22,15 +22,22 @@ function ProductList() {
   }, [navigate, searchParams]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        paddingX: '30px',
+      }}
+    >
       {products.length ? (
-        <Box sx={{ paddingY: '20px' }}>
+        <Box sx={{ paddingY: '50px' }}>
           <Box
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
-              paddingX: '30px',
+              paddingX: '50px',
             }}
           >
             {products.map((product) => {
@@ -50,7 +57,21 @@ function ProductList() {
           </Box>
         </Box>
       ) : (
-        'nothign'
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ textAlign: 'center', paddingY: '100px' }}>
+            <Box
+              sx={{ fontWeight: 'bold', fontSize: '50px', paddingY: '50px' }}
+            >
+              404
+            </Box>
+          </Box>
+        </Box>
       )}
     </Box>
   );

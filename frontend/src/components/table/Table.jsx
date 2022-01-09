@@ -139,7 +139,11 @@ export default function AdminPageTable({ columns, object, width }) {
                             ? () => handleRedirectOrderDetail(row.id)
                             : undefined
                         }
-                        sx={object === 'orders' ? { cursor: 'pointer' } : ''}
+                        sx={
+                          object === 'orders'
+                            ? { cursor: 'pointer' }
+                            : undefined
+                        }
                       >
                         {columns.map((column) => {
                           if (column.id === 'edit') {
