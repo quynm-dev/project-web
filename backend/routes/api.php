@@ -41,5 +41,6 @@ Route::post('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);
 Route::get('/products-pagination', [ProductController::class, 'getProductsPagination']);
 Route::get('/products/{id}/options', [ProductController::class, 'getProductOptions']);
+Route::get('/search', [ProductController::class, 'search']);
 Route::post('/orders/{id}/order-items', [OrderController::class, 'createOrderItems']);
 Route::get('users/{id}/orders', [UserController::class, 'getOrders']);

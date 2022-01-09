@@ -149,4 +149,10 @@ class ProductController extends Controller
     public function getProductOptions($id) {
         return DB::table('options')->where('product_id', $id)->get();
     }
+
+    public function search(Request $request) {
+        return DB::table('products')
+        ->where('name', 'like', '%' . $request->input('product-name') . '%')
+        ->get();
+    }
 }

@@ -18,6 +18,7 @@ import Profile from './pages/profile/Profile';
 import Order from './pages/order/Order';
 import OrderDetail from './pages/order-detail/OrderDetail';
 import AdminOrder from './pages/admin/orders/admin-orders/AdminOrder';
+import Search from './pages/search/Search';
 
 const App = () => {
   const token = useSelector((state) => {
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/orders" element={<Order />} />
               <Route path="/orders/:id" element={<OrderDetail />} />
+              <Route path="/search" element={<Search />} />
             </>
           ) : (
             ''
