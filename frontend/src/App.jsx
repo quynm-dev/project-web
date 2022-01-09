@@ -15,6 +15,8 @@ import AdminProductAdd from './pages/admin/products/admin-product-add/AdminProdu
 import AdminUser from './pages/admin/users/admin-users/AdminUsers';
 import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
 import Profile from './pages/profile/Profile';
+import Order from './pages/order/Order';
+import OrderDetail from './pages/order-detail/OrderDetail';
 
 const App = () => {
   const token = useSelector((state) => {
@@ -36,6 +38,8 @@ const App = () => {
               <Route path="/products/:id" element={<ProductDetail />} />
               <Route path="/shopping-cart" element={<ShoppingCart />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/orders" element={<Order />} />
+              <Route path="/orders/:id" element={<OrderDetail />} />
             </>
           ) : (
             ''

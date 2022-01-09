@@ -19,7 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return Order::all();
     }
 
     /**
@@ -63,7 +63,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $orders = DB::table('orders')
+        ->where('orders.id', $id)
+        ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+        ->join('option_order_item', 'order_items.id', '=', 'option_order_item.order_item_id')
+        ->join('options', 'options.id', '=', 'option_order_item.option_id')
+        ->join('products', 'products.id', '=', 'options.product_id')
+        ->select('orders.*', 'order_items.*', 'option_order_item.*','options.*', 'products.*' ,
+        'orders.name as name', 'products.name as product_name', 'order_items.quantity as quantity')
+        ->get();
+
+        return $orders;
     }
 
     /**
@@ -97,7 +107,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+
+        $order->delete();
     }
 
     public function createOrderItems(Request $request, $id) {

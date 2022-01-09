@@ -25,6 +25,7 @@ function CartItem({
   cartItemQuantity,
   cartItemImageUrl,
   cartItemId,
+  isOrderDetail,
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,13 +43,19 @@ function CartItem({
           event.target.value,
           cartItem.quantity,
           cartItemSize,
+          cartItemPrice,
         ),
       );
       return;
     }
     setCartItem({ ...cartItem, quantity: event.target.value });
     dispatch(
-      editCartItemQuantity(cartItemId, cartItem.size, event.target.value),
+      editCartItemQuantity(
+        cartItemId,
+        cartItem.size,
+        event.target.value,
+        cartItemPrice,
+      ),
     );
   };
 
@@ -113,6 +120,7 @@ function CartItem({
                     value={cartItem.size}
                     onChange={handleCartItemChange}
                     name="size"
+                    readOnly={isOrderDetail}
                   >
                     <MenuItem value={38}>38</MenuItem>
                     <MenuItem value={39}>39</MenuItem>
@@ -133,6 +141,7 @@ function CartItem({
                     value={cartItem.quantity}
                     name="quantity"
                     onChange={handleCartItemChange}
+                    readOnly={isOrderDetail}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>
@@ -166,6 +175,7 @@ function CartItem({
           startIcon={<DeleteIcon />}
           sx={{ fontWeight: '600', height: '55px  ' }}
           onClick={handleRemoveCartItem}
+          disabled={isOrderDetail}
         >
           XOÁ
         </Button>
@@ -181,6 +191,7 @@ CartItem.propTypes = {
   cartItemQuantity: PropTypes.number,
   cartItemImageUrl: PropTypes.string,
   cartItemId: PropTypes.number,
+  isOrderDetail: PropTypes.bool,
 };
 
 CartItem.defaultProps = {
@@ -190,6 +201,7 @@ CartItem.defaultProps = {
   cartItemQuantity: 1,
   cartItemImageUrl: '',
   cartItemId: 0,
+  isOrderDetail: false,
 };
 
 export default CartItem;

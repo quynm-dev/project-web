@@ -1,4 +1,4 @@
-import AdminTable from '../../../../components/admin-page-table/AdminPageTable';
+import Table from '../../../../components/table/Table';
 
 const columns = [
   { id: 'name', label: 'Name' },
@@ -9,7 +9,7 @@ const columns = [
 ];
 
 function AdminUser() {
-  return <AdminTable columns={columns} object="users" width="70%" />;
+  return <Table columns={columns} object="users" width="70%" />;
 }
 
 export default AdminUser;

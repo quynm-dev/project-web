@@ -53,11 +53,16 @@ function ShoppingCart() {
     setAddress(event.target.value);
   };
 
+  const totalPricing = shoppingCart.reduce((sum, { pricing, quantity }) => {
+    return sum + pricing * quantity;
+  }, 0);
+
   const handleOrder = async () => {
     const res = await axiosClient.post('/orders', {
       user_id: userId,
       phone_number: phoneNumber,
       address,
+      total_pricing: totalPricing,
     });
 
     await axiosClient
@@ -118,6 +123,18 @@ function ShoppingCart() {
             }}
           >
             {shoppingCart.length} sản phẩm
+          </Box>
+          <Box
+            sx={{
+              position: 'absolute',
+              right: '50px',
+              bottom: '0',
+              color: 'gray',
+              paddingBottom: '10px',
+              fontWeight: 'bold',
+            }}
+          >
+            Total: <span style={{ color: '#f15e2c' }}>{totalPricing} $</span>
           </Box>
         </Box>
         {shoppingCart.length === 0 || cartItems.length === 0

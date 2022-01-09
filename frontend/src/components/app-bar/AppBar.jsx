@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Toolbar, Box, AppBar, Button, Menu, MenuItem } from '@mui/material';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FaceIcon from '@mui/icons-material/Face';
 import { Link, useNavigate } from 'react-router-dom';
@@ -44,7 +44,7 @@ export default function ButtonAppBar() {
             justifyContent: 'flex-end',
           }}
         >
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/orders" style={{ textDecoration: 'none' }}>
             <Box
               sx={{ display: 'flex', alignItems: 'center', paddingX: '15px' }}
             >
@@ -62,12 +62,12 @@ export default function ButtonAppBar() {
               </Box>
             </Box>
           </Link>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/products" style={{ textDecoration: 'none' }}>
             <Box
               sx={{ display: 'flex', alignItems: 'center', paddingX: '15px' }}
             >
               <Box>
-                <LocationOnOutlinedIcon />
+                <ArticleOutlinedIcon />
               </Box>
               <Box
                 sx={{
@@ -76,16 +76,16 @@ export default function ButtonAppBar() {
                   fontWeight: 'bold',
                 }}
               >
-                Tìm cửa hàng
+                Sản phẩm
               </Box>
             </Box>
           </Link>
-          <Link to="/shopping-cart" style={{ textDecoration: 'none' }}>
+          <Link to="/register" style={{ textDecoration: 'none' }}>
             <Box
               sx={{ display: 'flex', alignItems: 'center', paddingX: '15px' }}
             >
               <Box>
-                <FavoriteBorderOutlinedIcon />
+                <PersonAddAltOutlinedIcon />
               </Box>
               <Box
                 sx={{
@@ -94,7 +94,7 @@ export default function ButtonAppBar() {
                   fontWeight: 'bold',
                 }}
               >
-                Yêu thích
+                Đăng kí
               </Box>
             </Box>
           </Link>

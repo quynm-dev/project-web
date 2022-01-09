@@ -60,8 +60,7 @@ const rootReducer = (state, action = {}) => {
         ) {
           cartItemDuplicateIndex = i;
           return {
-            productId: item.productId,
-            size: item.size,
+            ...item,
             quantity: item.quantity + action.payload.quantity,
           };
         }

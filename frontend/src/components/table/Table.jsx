@@ -16,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { useNavigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import { useSelector } from 'react-redux';
 import axiosClient from '../../api/axios';
 
 export default function AdminPageTable({ columns, object, width }) {
@@ -23,17 +24,31 @@ export default function AdminPageTable({ columns, object, width }) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
   const navigate = useNavigate();
+  const userId = useSelector((state) => {
+    return state.user.id;
+  });
 
   useEffect(() => {
-    axiosClient
-      .get(`/${object}`)
-      .then((res) => {
-        setRows(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [object]);
+    if (object === 'orders') {
+      axiosClient
+        .get(`users/${userId}/orders`)
+        .then((res) => {
+          setRows(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axiosClient
+        .get(`/${object}`)
+        .then((res) => {
+          setRows(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [object, userId]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,6 +69,10 @@ export default function AdminPageTable({ columns, object, width }) {
       return;
     }
     navigate('/register');
+  };
+
+  const handleRedirectOrderDetail = (id) => {
+    navigate(`/orders/${id}`);
   };
 
   const handleDelete = (id) => {
@@ -109,6 +128,11 @@ export default function AdminPageTable({ columns, object, width }) {
                         role="checkbox"
                         tabIndex={-1}
                         key={row.id}
+                        onClick={
+                          object === 'orders'
+                            ? () => handleRedirectOrderDetail(row.id)
+                            : undefined
+                        }
                       >
                         {columns.map((column) => {
                           if (column.id === 'edit') {
@@ -127,7 +151,10 @@ export default function AdminPageTable({ columns, object, width }) {
                             return (
                               <TableCell key={column.id} align={column.align}>
                                 <Button
-                                  sx={{ marginLeft: '-10px', color: 'inherit' }}
+                                  sx={{
+                                    marginLeft: '-10px',
+                                    color: 'inherit',
+                                  }}
                                   onClick={() => handleDelete(row.id)}
                                 >
                                   <DeleteIcon />
@@ -140,7 +167,10 @@ export default function AdminPageTable({ columns, object, width }) {
                             <TableCell key={column.id} align={column.align}>
                               {column.format && typeof value === 'number'
                                 ? column.format(value)
-                                : value}
+                                : value}{' '}
+                              {column.id.toLowerCase().includes('pricing')
+                                ? ' $'
+                                : ''}
                             </TableCell>
                           );
                         })}

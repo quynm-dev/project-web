@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -108,5 +109,13 @@ class UserController extends Controller
         $user = User::find($id);
 
         $user->update(['password' => bcrypt($request->input('new_password'))]);
+    }
+
+    public function getOrders($id) {
+        $orders = DB::table('orders')
+        ->where('user_id', $id)
+        ->get();
+
+        return $orders;
     }
 }

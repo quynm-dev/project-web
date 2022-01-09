@@ -8,9 +8,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +42,4 @@ Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);
 Route::get('/products-pagination', [ProductController::class, 'getProductsPagination']);
 Route::get('/products/{id}/options', [ProductController::class, 'getProductOptions']);
 Route::post('/orders/{id}/order-items', [OrderController::class, 'createOrderItems']);
+Route::get('users/{id}/orders', [UserController::class, 'getOrders']);

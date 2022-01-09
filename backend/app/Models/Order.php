@@ -14,7 +14,8 @@ class Order extends Model
         'name',
         'number',
         'address',
-        'phone_number'
+        'phone_number',
+        'total_pricing'
     ];
 
     protected $hidden = [
