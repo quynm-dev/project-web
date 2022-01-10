@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Option;
 
 class OptionController extends Controller
 {
@@ -13,7 +15,10 @@ class OptionController extends Controller
      */
     public function index()
     {
-
+        return DB::table('options')
+        ->join('products', 'products.id', '=', 'options.product_id')
+        ->select('options.*', 'products.*', 'options.id as id')
+        ->get();
     }
 
     /**
@@ -34,7 +39,15 @@ class OptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'size' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'product_name' => 'required',
+        ]);
+
+        $product = DB::table('products')->where('name', '=', $request->input('product_name'))->first();
+
+        Option::create($request->all() + ['product_id' => $product->id]);
     }
 
     /**
@@ -45,7 +58,11 @@ class OptionController extends Controller
      */
     public function show($id)
     {
-        //
+        return DB::table('options')
+        ->where('options.id', $id)
+        ->join('products', 'products.id', '=', 'options.product_id')
+        ->select('options.*', 'products.*', 'options.id as id')
+        ->first();
     }
 
     /**
@@ -68,7 +85,13 @@ class OptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|numeric'
+        ]);
+
+        $option = Option::find($id);
+
+        $option->update($request->all());
     }
 
     /**
@@ -79,6 +102,8 @@ class OptionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $option = Option::find($id);
+
+        $option->delete();
     }
 }

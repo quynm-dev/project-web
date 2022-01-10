@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\OptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,9 @@ Route::resource('/brands', BrandController::class);
 
 Route::resource('/orders', OrderController::class);
 
-Route::resource('order-items', OrderItemController::class);
+Route::resource('/order-items', OrderItemController::class);
+
+Route::resource('/options', OptionController::class);
 
 Route::post('/cart-items', [ProductController::class, 'getCartItems']);
 Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);

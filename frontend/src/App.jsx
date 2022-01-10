@@ -14,10 +14,13 @@ import AdminProductEdit from './pages/admin/products/admin-product-edit/AdminPro
 import AdminProductAdd from './pages/admin/products/admin-product-add/AdminProductAdd';
 import AdminUser from './pages/admin/users/admin-users/AdminUsers';
 import AdminUserEdit from './pages/admin/users/admin-user-edit/AdminUserEdit';
+import AdminOption from './pages/admin/options/admin-options/AdminOptions';
+import AdminOptionEdit from './pages/admin/options/admin-option-edit/AdminOptionEdit';
+import AdminOptionAdd from './pages/admin/options/admin-option-add/AdminOptionAdd';
+import AdminOrder from './pages/admin/orders/admin-orders/AdminOrder';
 import Profile from './pages/profile/Profile';
 import Order from './pages/order/Order';
 import OrderDetail from './pages/order-detail/OrderDetail';
-import AdminOrder from './pages/admin/orders/admin-orders/AdminOrder';
 import Search from './pages/search/Search';
 
 const App = () => {
@@ -61,6 +64,13 @@ const App = () => {
               <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
 
               <Route path="/admin/orders" element={<AdminOrder />} />
+
+              <Route path="/admin/options" element={<AdminOption />} />
+              <Route path="/admin/options/add" element={<AdminOptionAdd />} />
+              <Route
+                path="/admin/options/:id/edit"
+                element={<AdminOptionEdit />}
+              />
             </>
           ) : (
             ''

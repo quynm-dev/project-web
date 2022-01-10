@@ -65,8 +65,8 @@ export default function AdminPageTable({ columns, object, width }) {
   };
 
   const handleRedirectAddPage = () => {
-    if (object === 'products') {
-      navigate(`/admin/products/add`);
+    if (object !== 'users') {
+      navigate(`/admin/${object}/add`);
       return;
     }
     navigate('/register');
@@ -158,6 +158,19 @@ export default function AdminPageTable({ columns, object, width }) {
                               </TableCell>
                             );
                           }
+
+                          if (column.id.includes('image')) {
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                <img
+                                  src={row[column.id]}
+                                  alt="product"
+                                  style={{ width: '200px' }}
+                                />
+                              </TableCell>
+                            );
+                          }
+
                           if (column.id === 'delete') {
                             return (
                               <TableCell key={column.id} align={column.align}>
