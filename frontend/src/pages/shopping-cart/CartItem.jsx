@@ -46,6 +46,7 @@ function CartItem({
           cartItemPrice,
         ),
       );
+      window.location.reload();
       return;
     }
     setCartItem({ ...cartItem, quantity: event.target.value });
@@ -57,6 +58,7 @@ function CartItem({
         cartItemPrice,
       ),
     );
+    window.location.reload();
   };
 
   const handleRemoveCartItem = () => {

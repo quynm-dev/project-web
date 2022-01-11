@@ -52,13 +52,11 @@ function Login() {
         await dispatch(
           login(res.data.token, res.data.user.id, res.data.user.role),
         );
-        setTimeout(() => {
-          if (role === 'admin') {
-            navigate('/admin/users');
-          } else {
-            navigate('/');
-          }
-        }, 1000);
+        if (role === 'admin') {
+          navigate('/admin/users');
+        } else {
+          navigate('/');
+        }
       })
       .catch((err) => {
         setSnackbarMessage(err.response.data.message);

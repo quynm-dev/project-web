@@ -179,7 +179,10 @@ export default function AdminPageTable({ columns, object, width }) {
                                     marginLeft: '-10px',
                                     color: 'inherit',
                                   }}
-                                  onClick={() => handleDelete(row.id)}
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    handleDelete(row.id);
+                                  }}
                                 >
                                   <DeleteIcon />
                                 </Button>

@@ -38,44 +38,56 @@ const App = () => {
         <Routes>
           {token ? (
             <>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/products" element={<Product />} />
-              <Route path="/products/:id" element={<ProductDetail />} />
-              <Route path="/shopping-cart" element={<ShoppingCart />} />
+              {role === 'user' ? (
+                <>
+                  <Route path="/" element={<Homepage />} />
+                  <Route path="/products" element={<Product />} />
+                  <Route path="/products/:id" element={<ProductDetail />} />
+                  <Route path="/shopping-cart" element={<ShoppingCart />} />
+                  <Route path="/orders" element={<Order />} />
+                  <Route path="/search" element={<Search />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/admin/products" element={<AdminProduct />} />
+                  <Route
+                    path="/admin/products/:id/edit"
+                    element={<AdminProductEdit />}
+                  />
+                  <Route
+                    path="/admin/products/add"
+                    element={<AdminProductAdd />}
+                  />
+
+                  <Route path="/admin/users" element={<AdminUser />} />
+                  <Route
+                    path="/admin/users/:id/edit"
+                    element={<AdminUserEdit />}
+                  />
+
+                  <Route path="/admin/orders" element={<AdminOrder />} />
+
+                  <Route path="/admin/options" element={<AdminOption />} />
+                  <Route
+                    path="/admin/options/add"
+                    element={<AdminOptionAdd />}
+                  />
+                  <Route
+                    path="/admin/options/:id/edit"
+                    element={<AdminOptionEdit />}
+                  />
+                </>
+              )}
+
               <Route path="/profile" element={<Profile />} />
-              <Route path="/orders" element={<Order />} />
               <Route path="/orders/:id" element={<OrderDetail />} />
-              <Route path="/search" element={<Search />} />
             </>
           ) : (
             ''
           )}
 
-          {role === 'admin' ? (
-            <>
-              <Route path="/admin/products" element={<AdminProduct />} />
-              <Route
-                path="/admin/products/:id/edit"
-                element={<AdminProductEdit />}
-              />
-              <Route path="/admin/products/add" element={<AdminProductAdd />} />
-
-              <Route path="/admin/users" element={<AdminUser />} />
-              <Route path="/admin/users/:id/edit" element={<AdminUserEdit />} />
-
-              <Route path="/admin/orders" element={<AdminOrder />} />
-
-              <Route path="/admin/options" element={<AdminOption />} />
-              <Route path="/admin/options/add" element={<AdminOptionAdd />} />
-              <Route
-                path="/admin/options/:id/edit"
-                element={<AdminOptionEdit />}
-              />
-            </>
-          ) : (
-            ''
-          )}
           <Route path="/login" element={<Login />} />
+
           <Route path="/register" element={<Register />} />
 
           <Route path="*" element={<NotFound />} />
