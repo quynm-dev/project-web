@@ -11,6 +11,7 @@ import { PropTypes } from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import axiosClient from '../../api/axios';
 
 import {
   removeFromShoppingCart,
@@ -34,8 +35,21 @@ function CartItem({
     size: cartItemSize,
   });
 
-  const handleCartItemChange = (event) => {
+  const handleCartItemChange = async (event) => {
+    const res = await axiosClient.get('/cart-item/option', {
+      params: {
+        product_id: cartItemId,
+        size: event.target.name === 'size' ? event.target.value : cartItem.size,
+      },
+    });
+    const option = res.data;
+
     if (event.target.name === 'size') {
+      if (option.quantity < cartItem.quantity) {
+        dispatch(removeFromShoppingCart(cartItemId, cartItem.size));
+        window.location.reload();
+        return;
+      }
       setCartItem({ ...cartItem, size: event.target.value });
       dispatch(
         editCartItemSize(
@@ -46,6 +60,12 @@ function CartItem({
           cartItemPrice,
         ),
       );
+      window.location.reload();
+      return;
+    }
+    if (option.quantity < event.target.value) {
+      console.log('quantity');
+      dispatch(removeFromShoppingCart(cartItemId, cartItem.size));
       window.location.reload();
       return;
     }
@@ -119,7 +139,7 @@ function CartItem({
                   <Select
                     labelId="size-label"
                     label="Size"
-                    value={cartItem.size}
+                    defaultValue={cartItemSize}
                     onChange={handleCartItemChange}
                     name="size"
                     readOnly={isOrderDetail}
@@ -140,10 +160,9 @@ function CartItem({
                   <Select
                     labelId="quantity-label"
                     label="quantity"
-                    value={cartItem.quantity}
+                    defaultValue={cartItemQuantity}
                     name="quantity"
                     onChange={handleCartItemChange}
-                    readOnly={isOrderDetail}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>

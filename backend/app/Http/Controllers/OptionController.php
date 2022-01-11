@@ -106,4 +106,13 @@ class OptionController extends Controller
 
         $option->delete();
     }
+
+    public function getCartItemOption(Request $request) {
+        $option = DB::table('options')
+        ->where('product_id', '=', $request->input('product_id'))
+        ->where('size', '=', $request->input('size'))
+        ->first();
+
+        return $option;
+    }
 }

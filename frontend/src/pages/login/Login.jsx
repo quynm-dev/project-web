@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 import axiosClient from '../../api/axios';
 import { login } from '../../redux/actions';
@@ -52,11 +53,13 @@ function Login() {
         await dispatch(
           login(res.data.token, res.data.user.id, res.data.user.role),
         );
-        if (role === 'admin') {
-          navigate('/admin/users');
-        } else {
-          navigate('/');
-        }
+        setTimeout(() => {
+          if (role === 'admin') {
+            navigate('/admin/users');
+          } else {
+            navigate('/');
+          }
+        }, 1000);
       })
       .catch((err) => {
         setSnackbarMessage(err.response.data.message);
@@ -161,6 +164,24 @@ function Login() {
                 </Button>
               </Box>
             </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'baseline',
+            }}
+            onClick={() => {
+              navigate('/register');
+            }}
+          >
+            <Link
+              to="/register"
+              sx={{ textDecoration: 'none', cursor: 'pointer' }}
+            >
+              Create Your Account
+              <ArrowRightAltIcon style={{ position: 'relative', top: '6px' }} />
+            </Link>
           </Box>
         </Box>
       </Box>

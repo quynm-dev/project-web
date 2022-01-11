@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Toolbar, Box, AppBar, Button, Menu, MenuItem } from '@mui/material';
 import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -77,24 +76,6 @@ export default function ButtonAppBar() {
                 }}
               >
                 Sản phẩm
-              </Box>
-            </Box>
-          </Link>
-          <Link to="/register" style={{ textDecoration: 'none' }}>
-            <Box
-              sx={{ display: 'flex', alignItems: 'center', paddingX: '15px' }}
-            >
-              <Box>
-                <PersonAddAltOutlinedIcon />
-              </Box>
-              <Box
-                sx={{
-                  paddingLeft: '10px',
-                  fontSize: '15px',
-                  fontWeight: 'bold',
-                }}
-              >
-                Đăng kí
               </Box>
             </Box>
           </Link>

@@ -148,6 +148,7 @@ function Profile() {
                   name="username"
                   value={editedUser.username}
                   onChange={handleEditedUserChange}
+                  readOnly
                 />
               </Box>
               <Box sx={{ paddingY: '20px' }}>
