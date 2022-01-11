@@ -22,7 +22,7 @@ function Layout({ children }) {
         <Box>{children}</Box>
       ) : (
         <Box>
-          {role !== 'admin' ? (
+          {role === 'user' ? (
             <>
               <AppBar />
               <Header />

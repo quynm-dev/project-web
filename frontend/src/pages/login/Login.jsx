@@ -10,7 +10,7 @@ import {
   Alert,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 import axiosClient from '../../api/axios';
@@ -24,9 +24,6 @@ function Login() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const role = useSelector((state) => {
-    return state.user.role;
-  });
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -50,14 +47,12 @@ function Login() {
         setSnackbarMessage('Login success');
         setIsErrorSnackbarMessage(false);
         setShowSnackbar(true);
-        await dispatch(
-          login(res.data.token, res.data.user.id, res.data.user.role),
-        );
+        dispatch(login(res.data.token, res.data.user.id, res.data.user.role));
         setTimeout(() => {
-          if (role === 'admin') {
-            navigate('/admin/users');
-          } else {
+          if (res.data.user.role === 'user') {
             navigate('/');
+          } else {
+            navigate('/admin/users');
           }
         }, 1000);
       })
