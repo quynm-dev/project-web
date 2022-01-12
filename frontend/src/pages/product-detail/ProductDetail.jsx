@@ -10,28 +10,43 @@ import {
   Container,
   Alert,
   Snackbar,
+  TextField,
 } from '@mui/material';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import StarRatingComponent from 'react-star-rating-component';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToShoppingCart } from '../../redux/actions';
 
 import axiosClient from '../../api/axios';
 
 import BestSeller from '../../components/best-seller/BestSeller';
 import Loading from '../../components/loading/Loading';
+import Rate from '../../components/rate/Rate';
 
 function ProductDetail() {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [size, setSize] = useState(38);
+  const [rates, setRates] = useState([]);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [options, setOptions] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [rateComment, setRateComment] = useState('');
+  const userId = useSelector((state) => {
+    return state.user.id;
+  });
+  const [countReload, setCountReload] = useState(0);
 
   const handleCloseSnackbar = () => {
     setShowSnackbar(false);
+  };
+
+  const reload = (prevCountReload) => {
+    setCountReload(prevCountReload + 1);
   };
 
   const handleAddToCart = () => {
@@ -42,6 +57,23 @@ function ProductDetail() {
     setTimeout(() => {
       window.location.reload();
     }, 500);
+  };
+
+  const onStarClick = (nextValue) => {
+    setRating(nextValue);
+  };
+
+  const handleCommentChange = (event) => {
+    setRateComment(event.target.value);
+  };
+
+  const handleRate = () => {
+    axiosClient.post('/rates', {
+      user_id: userId,
+      comment: rateComment,
+      product_id: id,
+      star: rating,
+    });
   };
 
   const handleQuantityChange = (event) => {
@@ -77,6 +109,14 @@ function ProductDetail() {
       .get(`/products/${id}/options`)
       .then((res) => {
         setOptions(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axiosClient
+      .get(`/products/${id}/rates`)
+      .then((res) => {
+        setRates(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -224,6 +264,77 @@ function ProductDetail() {
                   </Button>
                 </Box>
               </Box>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '80%',
+                margin: 'auto',
+                alignItems: 'center',
+                paddingY: '50px',
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                }}
+              >
+                <Box>
+                  <AccountCircleRoundedIcon style={{ fontSize: '60px' }} />
+                </Box>
+                <Box
+                  sx={{
+                    width: '100%',
+                    paddingLeft: '20px',
+                    paddingRight: '50px',
+                  }}
+                >
+                  <Box>
+                    <StarRatingComponent
+                      name="rating"
+                      starCount={5}
+                      value={rating}
+                      onStarClick={onStarClick}
+                    />
+                  </Box>
+                  <Box>
+                    <TextField
+                      label="Comment "
+                      variant="standard"
+                      sx={{ width: '100%' }}
+                      onChange={handleCommentChange}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+              <Box>
+                <Button variant="outlined" onClick={handleRate}>
+                  Rate
+                </Button>
+              </Box>
+            </Box>
+            <Box>
+              {rates.map((rate) => {
+                return (
+                  <Rate
+                    key={rate.id}
+                    username={rate.username}
+                    comment={rate.comment}
+                    time={rate.updated_at}
+                    rateStar={rate.star}
+                    userId={userId}
+                    userRateId={rate.user_id}
+                    id={rate.id}
+                    reload={() => {
+                      window.location.reload();
+                      setCountReload(reload);
+                    }}
+                  />
+                );
+              })}
             </Box>
             <Container>
               <BestSeller />

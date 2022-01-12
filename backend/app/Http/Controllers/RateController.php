@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Rate;
+use Illuminate\Support\Facades\DB;
 class RateController extends Controller
 {
     /**
@@ -13,7 +14,10 @@ class RateController extends Controller
      */
     public function index()
     {
-        //
+        return DB::table('rates')
+        ->join('users', 'users.id', '=', 'rates.user_id')
+        ->select('rates.*', 'users.*', 'rates.id as id')
+        ->get();
     }
 
     /**
@@ -34,7 +38,14 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'product_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'comment' => 'required',
+            'star' => 'required|numeric'
+        ]);
+
+        Rate::create($request->all());
     }
 
     /**
@@ -68,7 +79,14 @@ class RateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'star' => 'required|numeric',
+            'comment' => 'required|string'
+        ]);
+
+        $rate = Rate::find($id);
+
+        $rate->update($request->all());
     }
 
     /**
@@ -79,6 +97,8 @@ class RateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rate = Rate::find($id);
+
+        $rate->delete();
     }
 }

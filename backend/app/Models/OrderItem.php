@@ -27,8 +27,4 @@ class OrderItem extends Model
     public function order() {
         return $this->belongsTo(Order::class);
     }
-
-    public function rate() {
-        return $this->hasOne(Rate::class);
-    }
 }

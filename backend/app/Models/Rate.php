@@ -10,17 +10,20 @@ class Rate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'order_item_id',
+        'product_id',
         'star',
         'comment',
-        'like',
+        'user_id',
     ];
 
     protected $hidden = [
-        'updated_at',
-    ];
+];
 
-    public function orderItem() {
-        return $this->belongsTo(OrderItem::class);
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

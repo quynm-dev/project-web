@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
-use App\Models\Option;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -153,6 +152,14 @@ class ProductController extends Controller
     public function search(Request $request) {
         return DB::table('products')
         ->where('name', 'like', '%' . $request->input('product-name') . '%')
+        ->get();
+    }
+
+    public function getProductRates($id) {
+        return DB::table('rates')
+        ->join('users', 'users.id', '=', 'rates.user_id')
+        ->where('product_id', '=', $id)
+        ->select('rates.*', 'users.*', 'rates.id as id')
         ->get();
     }
 }
