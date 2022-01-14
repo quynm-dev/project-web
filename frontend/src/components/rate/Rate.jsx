@@ -30,16 +30,19 @@ function Rate({
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const formatDate = new Date(time);
 
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => {
     setOpenModal(true);
     handleClose();
   };
-  const handleCloseModal = () => {
+  const handleCloseModal = (isAction = false) => {
     setOpenModal(false);
-    // setRating(rateStar);
-    // setEditedComment(comment);
+    if (isAction) {
+      setRating(rateStar);
+      setEditedComment(comment);
+    }
   };
 
   const handleDeleteRate = () => {
@@ -107,7 +110,9 @@ function Rate({
             <Box sx={{ paddingRight: '20px', fontSize: '20px' }}>
               {username}
             </Box>
-            <Box sx={{ color: 'gray', fontSize: '13px' }}>{time}</Box>
+            <Box sx={{ color: 'gray', fontSize: '13px' }}>
+              {formatDate.toLocaleString()}
+            </Box>
           </Box>
           <Box>{comment}</Box>
         </Box>

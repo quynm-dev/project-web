@@ -159,7 +159,9 @@ class ProductController extends Controller
         return DB::table('rates')
         ->join('users', 'users.id', '=', 'rates.user_id')
         ->where('product_id', '=', $id)
-        ->select('rates.*', 'users.*', 'rates.id as id')
+        ->orderBy('rates.created_at', 'desc')
+        ->select('rates.*', 'users.*', 'rates.id as id', 'rates.created_at as created_at',
+        'rates.updated_at as updated_at')
         ->get();
     }
 }

@@ -16,7 +16,9 @@ class RateController extends Controller
     {
         return DB::table('rates')
         ->join('users', 'users.id', '=', 'rates.user_id')
-        ->select('rates.*', 'users.*', 'rates.id as id')
+        ->orderBy('rates.updated_at', 'desc')
+        ->select('rates.*', 'users.*', 'rates.id as id', 'rates.created_at as created_at',
+        'rates.updated_at as updated_at')
         ->get();
     }
 
@@ -56,7 +58,12 @@ class RateController extends Controller
      */
     public function show($id)
     {
-        //
+        return DB::table('rates')
+        ->join('users', 'users.id', '=', 'rates.user_id')
+        ->where('rates.id', $id)
+        ->select('rates.*', 'users.*', 'rates.id as id',
+        'rates.updated_at as updated_at', 'rates.created_at as created_at')
+        ->first();
     }
 
     /**

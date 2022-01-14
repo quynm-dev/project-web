@@ -39,7 +39,7 @@ function ProductDetail() {
   const userId = useSelector((state) => {
     return state.user.id;
   });
-  const [countReload, setCountReload] = useState(0);
+  const [, setCountReload] = useState(0);
 
   const handleCloseSnackbar = () => {
     setShowSnackbar(false);
@@ -74,6 +74,8 @@ function ProductDetail() {
       product_id: id,
       star: rating,
     });
+    setCountReload(reload);
+    window.location.reload();
   };
 
   const handleQuantityChange = (event) => {
@@ -323,7 +325,7 @@ function ProductDetail() {
                     key={rate.id}
                     username={rate.username}
                     comment={rate.comment}
-                    time={rate.updated_at}
+                    time={rate.created_at}
                     rateStar={rate.star}
                     userId={userId}
                     userRateId={rate.user_id}
