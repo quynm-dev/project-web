@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import StarRatingComponent from 'react-star-rating-component';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,6 +32,7 @@ function ProductDetail() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [size, setSize] = useState(38);
   const [rates, setRates] = useState([]);
+  const [averageStar, setAverageStar] = useState(0.0);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [options, setOptions] = useState([]);
@@ -119,6 +121,13 @@ function ProductDetail() {
       .get(`/products/${id}/rates`)
       .then((res) => {
         setRates(res.data);
+        if (res.data.length > 0) {
+          setAverageStar(
+            res.data.reduce((sum, rate) => {
+              return sum + rate.star;
+            }, 0) / res.data.length,
+          );
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -179,20 +188,49 @@ function ProductDetail() {
                   <Box sx={{ fontWeight: 'bold', fontSize: '30px' }}>
                     {product.name}
                   </Box>
-                  <Box sx={{ display: 'flex' }}>
-                    <Box>Tình trạng: </Box>
-                    <Box sx={{ paddingX: '5px', fontWeight: '600' }}>
-                      {renderQuantity()}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Box sx={{ display: 'flex' }}>
+                      <Box>Tình trạng: </Box>
+                      <Box sx={{ paddingX: '5px', fontWeight: '600' }}>
+                        {renderQuantity()}
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex' }}>
+                      <Box sx={{ paddingRight: '5px' }}>Rate Count: </Box>
+                      <Box>{rates.length}</Box>
                     </Box>
                   </Box>
                   <Box
                     sx={{
-                      fontSize: '20px',
-                      color: '#f15e2c',
-                      fontWeight: 'bold',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
                     }}
                   >
-                    {product.pricing * quantity} $
+                    <Box
+                      sx={{
+                        fontSize: '20px',
+                        color: '#f15e2c',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {product.pricing * quantity} $
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <Box sx={{ paddingRight: '5px' }}>Average Star: </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box sx={{ paddingRight: '5px' }}>{averageStar}</Box>
+                        <Box>
+                          <StarOutlinedIcon style={{ color: '#ffbe00' }} />
+                        </Box>
+                      </Box>
+                    </Box>
                   </Box>
                   <Box
                     sx={{
@@ -339,7 +377,7 @@ function ProductDetail() {
               })}
             </Box>
             <Container>
-              <SlickList type="related-products" productId={id} />
+              <SlickList type="related-products" productId={parseInt(id, 10)} />
             </Container>
           </Box>
         ) : (

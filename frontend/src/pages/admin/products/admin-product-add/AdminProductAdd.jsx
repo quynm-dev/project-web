@@ -161,38 +161,6 @@ function AdminUserAdd() {
                   <Box sx={{ paddingY: '20px' }}>
                     <InputLabel
                       sx={{ fontSize: '20px', fontWeight: 'bold' }}
-                      htmlFor="average-star"
-                    >
-                      Average Star
-                    </InputLabel>
-                    <Input
-                      type="text"
-                      sx={{ width: '300px' }}
-                      id="average-star"
-                      name="average_star"
-                      value={product.average_star}
-                      onChange={handleProductChange}
-                    />
-                  </Box>
-                  <Box sx={{ paddingY: '20px' }}>
-                    <InputLabel
-                      sx={{ fontSize: '20px', fontWeight: 'bold' }}
-                      htmlFor="rate-count"
-                    >
-                      Rate Count
-                    </InputLabel>
-                    <Input
-                      type="text"
-                      sx={{ width: '300px' }}
-                      id="rate-count"
-                      name="rate_count"
-                      value={product.rate_count}
-                      onChange={handleProductChange}
-                    />
-                  </Box>
-                  <Box sx={{ paddingY: '20px' }}>
-                    <InputLabel
-                      sx={{ fontSize: '20px', fontWeight: 'bold' }}
                       htmlFor="product-image-url"
                     >
                       Product Image Url

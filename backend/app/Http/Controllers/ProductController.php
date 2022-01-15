@@ -46,8 +46,6 @@ class ProductController extends Controller
             'description' => 'required|string',
             'pricing' => 'required',
             'discount' => 'required',
-            'average_star' => 'required',
-            'rate_count' => 'required',
             'product_image_url' => 'required|string'
         ]);
 
@@ -97,8 +95,6 @@ class ProductController extends Controller
             'description' => 'required|string',
             'pricing' => 'required',
             'discount' => 'required',
-            'average_star' => 'required',
-            'rate_count' => 'required',
             'product_image_url' => 'required|string'
         ]);
 

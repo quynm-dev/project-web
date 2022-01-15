@@ -6,8 +6,6 @@ const columns = [
   { id: 'description', label: 'Description' },
   { id: 'pricing', label: 'Pricing' },
   { id: 'discount', label: 'Discount' },
-  { id: 'average_star', label: 'Average Star' },
-  { id: 'rate_count', label: 'Rate Count' },
   { id: 'product_image_url', label: 'Product Image Url' },
   { id: 'edit', label: 'Edit' },
   { id: 'delete', label: 'Delete' },
