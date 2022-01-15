@@ -4,6 +4,7 @@ import PlagiarismOutlinedIcon from '@mui/icons-material/PlagiarismOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
+import ReviewsRoundedIcon from '@mui/icons-material/ReviewsRounded';
 import FaceIcon from '@mui/icons-material/Face';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -111,6 +112,24 @@ export default function AdminHeader() {
                 }}
               >
                 Option
+              </Box>
+            </Box>
+          </Link>
+          <Link to="/admin/rates" style={{ textDecoration: 'none' }}>
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', paddingX: '15px' }}
+            >
+              <Box>
+                <ReviewsRoundedIcon />
+              </Box>
+              <Box
+                sx={{
+                  paddingLeft: '10px',
+                  fontSize: '15px',
+                  fontWeight: 'bold',
+                }}
+              >
+                Rates
               </Box>
             </Box>
           </Link>

@@ -44,7 +44,7 @@ Route::resource('/options', OptionController::class);
 Route::resource('rates', RateController::class);
 
 Route::post('/cart-items', [ProductController::class, 'getCartItems']);
-Route::get('/best-seller', [ProductController::class, 'getBestSeller']);
+Route::get('/new-products', [ProductController::class, 'getNewProducts']);
 Route::get('/products/{id}/related-products', [ProductController::class, 'getRelatedProducts']);
 Route::get('/products-pagination', [ProductController::class, 'getProductsPagination']);
 Route::get('/products/{id}/options', [ProductController::class, 'getProductOptions']);

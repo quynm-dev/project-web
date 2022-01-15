@@ -89,7 +89,7 @@ export default function AdminPageTable({ columns, object, width }) {
 
   return (
     <Box>
-      {object !== 'orders' ? (
+      {object !== 'orders' && object !== 'rates' ? (
         <Box
           sx={{
             display: 'flex',

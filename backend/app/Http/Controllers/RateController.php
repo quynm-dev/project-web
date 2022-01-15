@@ -16,9 +16,11 @@ class RateController extends Controller
     {
         return DB::table('rates')
         ->join('users', 'users.id', '=', 'rates.user_id')
+        ->join('products', 'products.id', '=', 'rates.product_id')
         ->orderBy('rates.updated_at', 'desc')
-        ->select('rates.*', 'users.*', 'rates.id as id', 'rates.created_at as created_at',
-        'rates.updated_at as updated_at')
+        ->select('rates.*', 'users.*', 'products.*', 'rates.id as id',
+         'rates.created_at as created_at', 'rates.updated_at as updated_at',
+         'products.name as product_name', 'users.name as user_name')
         ->get();
     }
 

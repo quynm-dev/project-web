@@ -1,6 +1,7 @@
 import Table from '../../../../components/table/Table';
 
 const columns = [
+  { id: 'id', label: 'ID' },
   { id: 'name', label: 'Name' },
   { id: 'brand_name', label: 'Brand' },
   { id: 'description', label: 'Description' },

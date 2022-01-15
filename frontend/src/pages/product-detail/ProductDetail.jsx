@@ -123,9 +123,11 @@ function ProductDetail() {
         setRates(res.data);
         if (res.data.length > 0) {
           setAverageStar(
-            res.data.reduce((sum, rate) => {
-              return sum + rate.star;
-            }, 0) / res.data.length,
+            (
+              res.data.reduce((sum, rate) => {
+                return sum + rate.star;
+              }, 0) / res.data.length
+            ).toFixed(1),
           );
         }
       })

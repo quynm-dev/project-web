@@ -42,8 +42,8 @@ export default function SlickList({ type, productId }) {
   useEffect(() => {
     axiosClient
       .get(
-        type === 'best-seller'
-          ? '/best-seller'
+        type === 'new-products'
+          ? '/new-products'
           : `/products/${productId}/related-products`,
       )
       .then((res) => {
@@ -59,7 +59,7 @@ export default function SlickList({ type, productId }) {
   return (
     <Box sx={{ paddingY: '50px' }}>
       <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-        {type === 'best-seller' ? 'BEST SELLER' : 'RELATED PRODUCTS'}
+        {type === 'new-products' ? 'NEW PRODUCTS' : 'RELATED PRODUCTS'}
       </Typography>
       <Box sx={{ position: 'relative' }}>
         <Box sx={{ position: 'absolute', width: '100%', top: '35%' }}>

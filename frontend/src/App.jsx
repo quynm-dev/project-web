@@ -18,6 +18,7 @@ import AdminOption from './pages/admin/options/admin-options/AdminOptions';
 import AdminOptionEdit from './pages/admin/options/admin-option-edit/AdminOptionEdit';
 import AdminOptionAdd from './pages/admin/options/admin-option-add/AdminOptionAdd';
 import AdminOrder from './pages/admin/orders/admin-orders/AdminOrder';
+import AdminRate from './pages/admin/rates/admin-rates/AdminRate';
 import Profile from './pages/profile/Profile';
 import Order from './pages/order/Order';
 import OrderDetail from './pages/order-detail/OrderDetail';
@@ -76,6 +77,7 @@ const App = () => {
                     path="/admin/options/:id/edit"
                     element={<AdminOptionEdit />}
                   />
+                  <Route path="/admin/rates" element={<AdminRate />} />
                 </>
               )}
 

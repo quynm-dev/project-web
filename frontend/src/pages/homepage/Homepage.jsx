@@ -17,7 +17,7 @@ function Homepage() {
         />
       </Box>
       <Container>
-        <SlickList type="best-seller" />
+        <SlickList type="new-products" />
       </Container>
     </Box>
   );

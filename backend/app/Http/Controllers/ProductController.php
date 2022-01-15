@@ -124,11 +124,11 @@ class ProductController extends Controller
         ->get();
     }
 
-    public function getBestSeller() {
+    public function getNewProducts() {
         return DB::table('products')
         ->join('brands', 'products.brand_id', 'brands.id')
-        ->select('products.*', 'brands.name as brand_name')
-        ->orderBy('rate_count', 'desc')
+        ->select('products.*', 'brands.name as brand_name', 'products.created_at as created_at')
+        ->orderBy('products.created_at', 'desc')
         ->limit(8)
         ->get();
     }
