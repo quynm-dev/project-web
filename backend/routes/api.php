@@ -10,7 +10,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\RateController;
-use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +44,8 @@ Route::resource('/options', OptionController::class);
 Route::resource('rates', RateController::class);
 
 Route::post('/cart-items', [ProductController::class, 'getCartItems']);
-Route::get('/best-sellers', [ProductController::class, 'getBestSellers']);
+Route::get('/best-seller', [ProductController::class, 'getBestSeller']);
+Route::get('/products/{id}/related-products', [ProductController::class, 'getRelatedProducts']);
 Route::get('/products-pagination', [ProductController::class, 'getProductsPagination']);
 Route::get('/products/{id}/options', [ProductController::class, 'getProductOptions']);
 Route::get('/products/{id}/rates', [ProductController::class, 'getProductRates']);

@@ -21,7 +21,7 @@ import { addToShoppingCart } from '../../redux/actions';
 
 import axiosClient from '../../api/axios';
 
-import BestSeller from '../../components/best-seller/BestSeller';
+import SlickList from '../../components/slick-list/SlickList';
 import Loading from '../../components/loading/Loading';
 import Rate from '../../components/rate/Rate';
 
@@ -339,7 +339,7 @@ function ProductDetail() {
               })}
             </Box>
             <Container>
-              <BestSeller />
+              <SlickList type="related-products" productId={id} />
             </Container>
           </Box>
         ) : (

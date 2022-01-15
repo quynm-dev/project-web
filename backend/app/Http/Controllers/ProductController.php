@@ -128,7 +128,7 @@ class ProductController extends Controller
         ->get();
     }
 
-    public function getBestSellers() {
+    public function getBestSeller() {
         return DB::table('products')
         ->join('brands', 'products.brand_id', 'brands.id')
         ->select('products.*', 'brands.name as brand_name')
@@ -162,6 +162,15 @@ class ProductController extends Controller
         ->orderBy('rates.created_at', 'desc')
         ->select('rates.*', 'users.*', 'rates.id as id', 'rates.created_at as created_at',
         'rates.updated_at as updated_at')
+        ->get();
+    }
+
+    public function getRelatedProducts($id) {
+        $product = Product::find($id);
+
+        return DB::table('products')
+        ->where('brand_id', '=', $product->brand_id)
+        ->where('id','<>', $id)
         ->get();
     }
 }

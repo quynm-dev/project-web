@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import React, { useState, useEffect } from 'react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { PropTypes } from 'prop-types';
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 
@@ -20,46 +21,50 @@ const useStyles = makeStyles({
     display: 'flex',
     position: 'relative',
 
-    '& .best-seller-swiper-button-prev, & .best-seller-swiper-button-next': {
+    '& .slick-list-swiper-button-prev, & .slick-list-swiper-button-next': {
       cursor: 'pointer',
       position: 'absolute',
     },
 
-    '& .best-seller-swiper-button-prev': {
+    '& .slick-list-swiper-button-prev': {
       left: '-50px',
     },
 
-    '& .best-seller-swiper-button-next': {
+    '& .slick-list-swiper-button-next': {
       right: '-50px',
     },
   },
 });
 
-export default function BestSeller() {
-  const [bestSellers, setBestSellers] = useState([]);
+export default function SlickList({ type, productId }) {
+  const [slickList, setSlickList] = useState([]);
 
   useEffect(() => {
     axiosClient
-      .get('/best-sellers')
+      .get(
+        type === 'best-seller'
+          ? '/best-seller'
+          : `/products/${productId}/related-products`,
+      )
       .then((res) => {
-        setBestSellers(res.data);
+        setSlickList(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [type, productId]);
 
   const classes = useStyles();
 
   return (
     <Box sx={{ paddingY: '50px' }}>
       <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-        BEST SELLER
+        {type === 'best-seller' ? 'BEST SELLER' : 'RELATED PRODUCTS'}
       </Typography>
       <Box sx={{ position: 'relative' }}>
         <Box sx={{ position: 'absolute', width: '100%', top: '35%' }}>
           <Box className={classes.swiperNavigation}>
-            <Box className="best-seller-swiper-button-prev">
+            <Box className="slick-list-swiper-button-prev">
               <KeyboardArrowLeftRoundedIcon
                 sx={{
                   fontSize: '50px',
@@ -67,7 +72,7 @@ export default function BestSeller() {
                 }}
               />
             </Box>
-            <Box className="best-seller-swiper-button-next">
+            <Box className="slick-list-swiper-button-next">
               <KeyboardArrowRightRoundedIcon
                 sx={{
                   fontSize: '50px',
@@ -84,22 +89,21 @@ export default function BestSeller() {
           loop
           loopFillGroupWithBlank
           style={{ padding: '20px 0' }}
-          className={classes.bestSellerSwiper}
           navigation={{
-            nextEl: '.best-seller-swiper-button-prev',
-            prevEl: '.best-seller-swiper-button-next',
+            nextEl: '.slick-list-swiper-button-prev',
+            prevEl: '.slick-list-swiper-button-next',
           }}
         >
-          {bestSellers.map((bestSeller) => {
+          {slickList.map((slickListItem) => {
             return (
-              <SwiperSlide key={bestSeller.id}>
+              <SwiperSlide key={slickListItem.id}>
                 <Product
-                  productImageUrl={bestSeller.product_image_url}
-                  productBrand={bestSeller.brand_name}
-                  productPrice={bestSeller.pricing}
-                  productName={bestSeller.name}
+                  productImageUrl={slickListItem.product_image_url}
+                  productBrand={slickListItem.brand_name}
+                  productPrice={slickListItem.pricing}
+                  productName={slickListItem.name}
                   width="100%"
-                  id={bestSeller.id}
+                  id={slickListItem.id}
                   showHeartIcon={false}
                 />
               </SwiperSlide>
@@ -110,3 +114,13 @@ export default function BestSeller() {
     </Box>
   );
 }
+
+SlickList.propTypes = {
+  type: PropTypes.string,
+  productId: PropTypes.number,
+};
+
+SlickList.defaultProps = {
+  type: '',
+  productId: 0,
+};

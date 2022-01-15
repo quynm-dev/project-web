@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material';
 
-import BestSeller from '../../components/best-seller/BestSeller';
+import SlickList from '../../components/slick-list/SlickList';
 import Carousel from '../../components/carousel/Carousel';
 import PromotionList from '../../components/promotion/PromotionList';
 
@@ -17,7 +17,7 @@ function Homepage() {
         />
       </Box>
       <Container>
-        <BestSeller />
+        <SlickList type="best-seller" />
       </Container>
     </Box>
   );
