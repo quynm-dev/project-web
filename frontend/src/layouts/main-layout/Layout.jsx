@@ -8,6 +8,7 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import AppBar from '../../components/app-bar/AppBar';
 import HotNews from '../../components/hot-news/HotNews';
+import SlickList from '../../components/slick-list/SlickList';
 import AdminHeader from '../../components/admin-header/AdminHeader';
 
 function Layout({ children }) {
@@ -28,6 +29,16 @@ function Layout({ children }) {
               <Header />
               <HotNews />
               {children}
+              {location.pathname === '/products' ||
+              location.pathname === '/search' ||
+              location.pathname === '/' ? (
+                <Box sx={{ width: '80%', margin: 'auto' }}>
+                  <SlickList type="new-products" />
+                </Box>
+              ) : (
+                ''
+              )}
+
               <Footer />
             </>
           ) : (

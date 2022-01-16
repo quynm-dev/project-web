@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar
           sx={{
-            backgroundColor: '#303030',
+            backgroundColor: '#4c4c4c',
             justifyContent: 'flex-end',
           }}
         >

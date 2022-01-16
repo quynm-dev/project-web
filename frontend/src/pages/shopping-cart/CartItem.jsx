@@ -163,6 +163,7 @@ function CartItem({
                     defaultValue={cartItemQuantity}
                     name="quantity"
                     onChange={handleCartItemChange}
+                    readOnly={isOrderDetail}
                   >
                     <MenuItem value={1}>1</MenuItem>
                     <MenuItem value={2}>2</MenuItem>

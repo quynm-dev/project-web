@@ -46,7 +46,6 @@ const App = () => {
                   <Route path="/shopping-cart" element={<ShoppingCart />} />
                   <Route path="/orders" element={<Order />} />
                   <Route path="/search" element={<Search />} />
-                  <Route path="/" element={<Homepage />} />
                 </>
               ) : (
                 <>
@@ -89,6 +88,7 @@ const App = () => {
           )}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Homepage />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

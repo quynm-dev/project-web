@@ -32,13 +32,16 @@ function ProductList() {
   }, [navigate, page]);
 
   return (
-    <Box sx={{ paddingY: '20px' }}>
+    <Box
+      sx={{
+        paddingY: '20px',
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          paddingX: '30px',
+          paddingLeft: '50px',
         }}
       >
         {products.map((product) => {

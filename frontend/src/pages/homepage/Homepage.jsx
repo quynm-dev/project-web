@@ -1,6 +1,5 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 
-import SlickList from '../../components/slick-list/SlickList';
 import Carousel from '../../components/carousel/Carousel';
 import PromotionList from '../../components/promotion/PromotionList';
 
@@ -16,9 +15,6 @@ function Homepage() {
           style={{ width: '100%' }}
         />
       </Box>
-      <Container>
-        <SlickList type="new-products" />
-      </Container>
     </Box>
   );
 }

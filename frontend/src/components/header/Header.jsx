@@ -9,7 +9,7 @@ function Header() {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        paddingY: '30px',
+        paddingY: '50px',
         justifyContent: 'space-around',
         backgroundColor: '#ffffff',
       }}
@@ -25,70 +25,8 @@ function Header() {
           <img src="/images/header/logo.svg" alt="logo" />
         </Link>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '35%',
-        }}
-      >
-        <Box
-          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
-        >
-          <Link
-            to="/products"
-            style={{
-              textDecoration: 'none',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          >
-            SẢN PHẨM
-          </Link>
-        </Box>
-        <Box
-          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
-        >
-          <Link
-            to="/men"
-            style={{
-              textDecoration: 'none',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          >
-            NAM
-          </Link>
-        </Box>
-        <Box
-          sx={{ paddingX: '20px', borderRight: '2px solid rgb(227 226 226)' }}
-        >
-          <Link
-            to="/women"
-            style={{
-              textDecoration: 'none',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          >
-            NỮ
-          </Link>
-        </Box>
-        <Box sx={{ paddingX: '20px' }}>
-          <Link
-            to="/sale-off"
-            style={{
-              textDecoration: 'none',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '20px',
-            }}
-          >
-            SALE OFF
-          </Link>
-        </Box>
+      <Box>
+        <img src="/images/login/logo-ananas.svg" alt="logo ananas" />
       </Box>
       <Box
         sx={{

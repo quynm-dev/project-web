@@ -36,8 +36,9 @@ function ProductList() {
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              paddingX: '50px',
+              width: '80%',
+              margin: 'auto',
+              paddingLeft: '50px',
             }}
           >
             {products.map((product) => {
@@ -62,11 +63,17 @@ function ProductList() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            textAlign: 'center',
+            width: '100%',
           }}
         >
-          <Box sx={{ textAlign: 'center', paddingY: '100px' }}>
+          <Box sx={{ paddingY: '100px' }}>
             <Box
-              sx={{ fontWeight: 'bold', fontSize: '50px', paddingY: '50px' }}
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '50px',
+                paddingY: '50px',
+              }}
             >
               404
             </Box>
